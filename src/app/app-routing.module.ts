@@ -6,9 +6,9 @@ import {SignInPageComponent} from './signin-page/signin-page.component'
 import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component'
 import {CreateAccountPageComponent} from './create-account-page/create-page.component'
 import {ResetPasswordPageComponent} from './reset-password-page/reset-password-page.component'
-import {AuthComponent} from './auth/auth.component'
 import {ErrorPageComponent} from './error-page/error-page.component'
 import {AuthGuard} from './shared/services/auth.guard'
+import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component'
 
 const routes: Routes = [
   {
@@ -22,7 +22,7 @@ const routes: Routes = [
         children: [
           {path: '', pathMatch: 'full', component: HomePageComponent},
           {
-            path: 'auth', component: AuthComponent, children: [
+            path: 'auth', component: UserLayoutComponent, children: [
               {path: '', pathMatch: 'full', component: SignInPageComponent},
               {path: 'create-account', component: CreateAccountPageComponent},
               {path: 'reset-password', component: ResetPasswordPageComponent}

@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core'
 import {RouterModule, Routes} from '@angular/router'
-import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component'
 import {ProfilePageComponent} from './profile-page/profile-page.component'
 import {SharedModule} from '../shared/shared.module'
 import {SubscriptionsPageComponent} from './subscriptions-page/subscriptions-page.component'
 import {SettingsPageComponent} from './settings-page/settings-page.component'
 import {HistoryPageComponent} from './history-page/history-page.component'
 import {LogoutPageComponent} from './logout-page/logout-page.component'
+import {UserLayoutComponent} from '../shared/components/user-layout/user-layout.component'
 
 const routes: Routes = [
   {
@@ -23,16 +23,8 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [
-    ProfilePageComponent,
-    UserLayoutComponent,
-    SettingsPageComponent,
-    SubscriptionsPageComponent,
-    HistoryPageComponent,
-    LogoutPageComponent
-  ],
   imports: [SharedModule, RouterModule.forChild(routes)],
-  exports: []
+  exports: [RouterModule]
 })
 export class UserModule {
 }

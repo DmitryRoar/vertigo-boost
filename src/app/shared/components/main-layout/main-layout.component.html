@@ -12,8 +12,9 @@
           class="nav-item"
           *ngFor="let navbarLink of auth.navbarLinks" (click)="burgerOpen = false"
           (mouseenter)="selectorOpen = true"
+          [class.selector-open]="navbarLink.useClass"
         >
-          <a class="nav-link" [class.selector-open]="navbarLink.useClass" routerLink='{{navbarLink.link}}'>{{navbarLink.title}}</a>
+          <a class="nav-link" routerLink='{{navbarLink.link}}'>{{navbarLink.title}}</a>
         </li>
       </ul>
     </div>
