@@ -42,7 +42,6 @@ export class AuthService {
 
   private errorHandler(error: HttpErrorResponse) {
     const {message} = error.error.error
-    console.log(message)
 
     switch (message) {
       case 'EMAIL_NOT_FOUND':
@@ -106,20 +105,25 @@ export class AuthService {
   }
 
   wrong() {
-    Swal.fire('Something went wrong', '', 'error')
+    Swal.fire('Something Went Wrong :3', '', 'error')
   }
 
   changeNavbarItem() {
-    const navbarProfileLink: INavbar = {title: 'Profile', link: '/profile', useClass: true}
+    const navbarProfileLink: INavbar = {title: 'Profile', link: '/profile', changeLink: true}
 
     this.profileLinks = [
       {title: 'Subscriptions', link: '/profile/subscriptions'},
       {title: 'Settings', link: '/profile/settings'},
       {title: 'History', link: '/profile/history'},
-      {title: 'Logout', link: '/profile/logout'}
+      {title: 'Logout', link: '/profile/logout', changeLink: true}
     ]
 
     this.navbarLinks.splice(-1)
     this.navbarLinks.push(navbarProfileLink)
+  }
+
+  comebackNavbarItem() {
+    this.navbarLinks.splice(-1)
+    this.navbarLinks.push({title: 'Sign In', link: '/auth'})
   }
 }

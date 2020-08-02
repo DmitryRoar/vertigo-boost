@@ -11,8 +11,8 @@
         <li
           class="nav-item"
           *ngFor="let navbarLink of auth.navbarLinks" (click)="burgerOpen = false"
-          (mouseenter)="selectorOpen = true"
-          [class.selector-open]="navbarLink.useClass"
+          (mouseenter)="navbarLink.changeLink ? selectorOpen = true : null"
+          [class.selector-open]="navbarLink.changeLink"
         >
           <a class="nav-link" routerLink='{{navbarLink.link}}'>{{navbarLink.title}}</a>
         </li>
@@ -29,7 +29,10 @@
     <img src="../../../../assets/img/poxuy.svg" alt="arrow-up" class="arrow-up">
     <div class="links-wrapper">
       <ul>
-        <li *ngFor="let profileLinks of auth.profileLinks">
+        <li
+          *ngFor="let profileLinks of auth.profileLinks"
+          (click)="profileMenuClick(profileLinks.changeLink)"
+        >
           <a [routerLink]="profileLinks.link">{{profileLinks.title}}</a>
         </li>
       </ul>

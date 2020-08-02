@@ -27,10 +27,10 @@ const routes: Routes = [
               {path: 'create-account', component: CreateAccountPageComponent},
               {path: 'reset-password', component: ResetPasswordPageComponent}
             ]
-          }
+          },
+          {path: 'profile', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]}
         ]
-      },
-      {path: 'profile', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]}
+      }
     ]
   },
   {path: 'error', component: ErrorPageComponent},

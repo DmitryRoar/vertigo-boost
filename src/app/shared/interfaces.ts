@@ -1,7 +1,7 @@
 export interface INavbar {
   title: string
   link: string
-  useClass?: boolean
+  changeLink?: boolean
   sectionLinks?: any
 }
 
@@ -18,7 +18,7 @@ export interface IPricing {
 }
 
 export interface ISwal {
-  fire: (text: string, textTwo: string, output: string) => any
+  fire: (reason: string, more: string, output: string) => any
 }
 
 export interface IAuthData {

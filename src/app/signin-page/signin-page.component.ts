@@ -30,7 +30,9 @@ export class SignInPageComponent implements OnInit {
     }
     this.authService.login(data).subscribe(() => {
       this.authService.success()
+      this.form.reset()
+    }, () => {
+      this.form.reset()
     })
-    this.form.reset()
   }
 }
