@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core'
 import {AuthService} from '../../services/auth.service'
-import {INavbar} from '../../interfaces'
 import {Router} from '@angular/router'
 
 @Component({
@@ -15,10 +14,8 @@ export class MainLayoutComponent implements OnInit {
   selectorOpen = false
 
   constructor(
-    public auth: AuthService,
-    private router: Router
-  ) {
-  }
+    public auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated) {
@@ -31,8 +28,7 @@ export class MainLayoutComponent implements OnInit {
 
     if (logoutLink) {
       this.auth.logout()
-      this.auth.comebackNavbarItem()
-      this.router.navigate(['/'])
+      this.auth.changeNavbarItem(false)
     }
   }
 }

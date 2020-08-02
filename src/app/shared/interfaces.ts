@@ -31,4 +31,3 @@ export interface FbAuthResponse {
   expiresIn: string
   idToken: string
 }
-

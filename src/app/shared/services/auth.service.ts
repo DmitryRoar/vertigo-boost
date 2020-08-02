@@ -108,22 +108,22 @@ export class AuthService {
     Swal.fire('Something Went Wrong :3', '', 'error')
   }
 
-  changeNavbarItem() {
+  changeNavbarItem(something = true) {
     const navbarProfileLink: INavbar = {title: 'Profile', link: '/profile', changeLink: true}
 
     this.profileLinks = [
       {title: 'Subscriptions', link: '/profile/subscriptions'},
       {title: 'Settings', link: '/profile/settings'},
       {title: 'History', link: '/profile/history'},
-      {title: 'Logout', link: '/profile/logout', changeLink: true}
+      {title: 'Logout', link: '/', changeLink: true}
     ]
 
     this.navbarLinks.splice(-1)
-    this.navbarLinks.push(navbarProfileLink)
-  }
 
-  comebackNavbarItem() {
-    this.navbarLinks.splice(-1)
-    this.navbarLinks.push({title: 'Sign In', link: '/auth'})
+    if (something) {
+      this.navbarLinks.push(navbarProfileLink)
+    } else {
+      this.navbarLinks.push({title: 'Sign In', link: '/auth'})
+    }
   }
 }

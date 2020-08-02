@@ -5,7 +5,6 @@ import {SharedModule} from '../shared/shared.module'
 import {SubscriptionsPageComponent} from './subscriptions-page/subscriptions-page.component'
 import {SettingsPageComponent} from './settings-page/settings-page.component'
 import {HistoryPageComponent} from './history-page/history-page.component'
-import {LogoutPageComponent} from './logout-page/logout-page.component'
 import {UserLayoutComponent} from '../shared/components/user-layout/user-layout.component'
 
 const routes: Routes = [
@@ -16,8 +15,7 @@ const routes: Routes = [
       {path: '', pathMatch: 'full', component: ProfilePageComponent},
       {path: 'subscriptions', component: SubscriptionsPageComponent},
       {path: 'settings', component: SettingsPageComponent},
-      {path: 'history', component: HistoryPageComponent},
-      {path: 'logout', component: LogoutPageComponent}
+      {path: 'history', component: HistoryPageComponent}
     ]
   }
 ]

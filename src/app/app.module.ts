@@ -16,7 +16,6 @@ import {ProfilePageComponent} from './user/profile-page/profile-page.component'
 import {SettingsPageComponent} from './user/settings-page/settings-page.component'
 import {SubscriptionsPageComponent} from './user/subscriptions-page/subscriptions-page.component'
 import {HistoryPageComponent} from './user/history-page/history-page.component'
-import {LogoutPageComponent} from './user/logout-page/logout-page.component'
 import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component'
 
 @NgModule({
@@ -34,8 +33,7 @@ import {UserLayoutComponent} from './shared/components/user-layout/user-layout.c
     ProfilePageComponent,
     SettingsPageComponent,
     SubscriptionsPageComponent,
-    HistoryPageComponent,
-    LogoutPageComponent
+    HistoryPageComponent
   ],
   imports: [
     BrowserModule,
