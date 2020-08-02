@@ -18,8 +18,7 @@ export class AuthService {
     {title: 'News', link: '/'},
     {title: 'Products', link: '/'},
     {title: 'Support', link: '/'},
-    {title: 'Contacts', link: '/'},
-    {title: 'Sign In', link: '/auth'},
+    {title: 'Sign In', link: '/auth'}
   ]
 
   profileLinks: INavbar[] = []
@@ -76,10 +75,10 @@ export class AuthService {
 
   signUp(data): Observable<any> {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
-      .pipe(
-        tap(this.setToken),
-        catchError(this.errorHandler.bind(this))
-      )
+  }
+
+  resetPassword(data): Observable<any> {
+    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
   }
 
   private setToken(response: FbAuthResponse | null) {

@@ -11,7 +11,7 @@ import {IAuthData} from '../shared/interfaces'
 export class CreateAccountPageComponent implements OnInit {
 
   form: FormGroup
-  confirmPassword = false
+  message = ''
 
   constructor(private authService: AuthService) { }
 
@@ -29,19 +29,21 @@ export class CreateAccountPageComponent implements OnInit {
       email, password,
       returnSecureToken: true
     }
-    this.authService.signUp(data).subscribe(data => {
-      console.log('data', data)
+
+    this.authService.signUp(data).subscribe(() => {
+      this.authService.success()
+      this.form.reset()
+    }, () => {
+      this.message = 'Different password. Try again'
+      this.form.reset()
     })
 
-    this.authService.success()
-    this.form.reset()
+
   }
 
   onChange() {
-    if (this.form.value.password.trim() === this.form.value.repeatPassword) {
-      this.confirmPassword = true
-    } else {
-      this.confirmPassword = false
+    if (!this.form.value.password.trim() === this.form.value.repeatPassword) {
+      return
     }
   }
 }

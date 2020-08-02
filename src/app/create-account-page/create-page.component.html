@@ -1,5 +1,8 @@
 <form class="form-wrapper" (ngSubmit)="onSubmit()" [formGroup]="form">
   <span class="auth-header">Create account</span>
+  <div class="validation-message">
+    {{message}}
+  </div>
   <input
     type="email"
     placeholder="Email"
@@ -30,11 +33,12 @@
     }"
   >
   <span class="auth__info">Your email address you use to sign in to VertigoBoost, HoursBoost.</span>
-  <button type="submit" class="auth__btn" >Continue</button>
+  <button type="submit" class="auth__btn" [disabled]="form.invalid">Continue</button>
 </form>
 
 <div class="auth-redirect">
   <a [routerLink]="['/auth']">Sign In</a>
   <span> / </span>
-  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>
+<!--  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>-->
+  <a class="dont-working">Reset password?</a>
 </div>

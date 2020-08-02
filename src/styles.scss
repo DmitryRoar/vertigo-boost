@@ -137,5 +137,10 @@
   }
 }
 
+.dont-working {
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
 
 @import "src/assets/myStyles/media";
