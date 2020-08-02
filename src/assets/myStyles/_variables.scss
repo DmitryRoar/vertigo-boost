@@ -1,0 +1,10 @@
+$theme-color: #0071E3;
+$link-color: #0066CC;
+
+$header-height: 50px;
+$covid-height: 46px;
+$footer-height: 49px;
+$content-height: calc(100vh - #{$header-height} - #{$covid-height} - #{$footer-height});
+//$home-content-height: calc(100vh - #{$header-height} - #{$covid-height});
+$content-height-mobile: calc(100vh - #{$header-height});
+$content-height-adaptive: 677px;

@@ -1,0 +1,141 @@
+@import 'src/assets/myStyles/reset';
+@import 'src/assets/myStyles/myStyles';
+
+::-webkit-scrollbar {
+  display: none
+}
+
+.content {
+  max-width: 1418px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+
+.auth-wrapper__form {
+  margin: 0 auto;
+  max-width: 410px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+//.content-signin {
+//  height: $content-height;
+//}
+
+.content-wrapper {
+  background: #131313;
+  height: $content-height;
+}
+
+.some-wrapper {
+  background: #F5F5F5;
+  height: $content-height;
+  display: flex;
+  align-items: center;
+  border-radius: 25px;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth__btn {
+  background: $theme-color;
+  font-size: 22px;
+  border-radius: 12px;
+  padding: 10px 0;
+  margin: 0 0 26px 0;
+
+  &:disabled {
+    background: $theme-color;
+    cursor: not-allowed;
+    transition: .4s;
+
+    &:hover {
+      background: #0066CC;
+    }
+  }
+}
+
+.auth-header {
+  text-align: center;
+  font-size: 35px;
+  margin: 0 0 44px 0;
+  font-weight: 600;
+}
+
+.auth__input {
+  margin: 0 0 14px 0;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #D2D2D7;
+  padding: 18px 0 18px 18px;
+}
+
+.auth__info {
+  margin: 0 0 34px 0;
+}
+
+.auth-redirect {
+  text-align: center;
+  a {
+    font-size: 16px;
+    color: $link-color;
+  }
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.swal2-title {
+  font-family: 'SFlight', sans-serif;
+}
+
+.validation-error {
+  color: red;
+}
+
+.nav-item.active {
+  .nav-link {
+    color: red;
+  }
+}
+
+.validation-message {
+  color: red;
+  text-align: center;
+  margin: -10px 0 10px 0;
+}
+
+.validation-border__error {
+  border: 1px solid red;
+  &::placeholder {
+    color: red;
+  }
+}
+
+@media (max-height: $content-height-adaptive) {
+  .auth-header {
+    font-size: 30px;
+    margin: 0 0 10px 0;
+  }
+
+  .content-wrapper, .some-wrapper {
+    height: $content-height-mobile
+  }
+
+  .some-wrapper {
+    border-radius: 0;
+  }
+}
+
+
+@import "src/assets/myStyles/media";

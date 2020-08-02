@@ -1,0 +1,254 @@
+@import 'src/assets/myStyles/variables';
+
+
+.card {
+  width: 290px;
+  max-width: 290px;
+  font-family: 'SFlight', sans-serif;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  height: 640px;
+  display: flex;
+  background: #131313;
+}
+
+.content {
+  max-width: 1418px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.covid {
+  background: $theme-color;
+  height: 46px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.covid span {
+  font-size: 14.5px;
+  line-height: 20px;
+  letter-spacing: 0.05em;
+}
+
+.main__btn {
+  background: $theme-color;
+  transition: .3s;
+  font-family: "SFmedium", sans-serif;
+  margin-top: 10px;
+  border-radius: 41px;
+  box-shadow: 0px 0px 15px $theme-color;
+  padding: 15px 36px;
+}
+
+.main__btn:hover {
+  box-shadow: 0px 0px 20px $theme-color;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main__right-span {
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 700;
+  white-space: nowrap;
+  font-family: "SFmedium", sans-serif;
+}
+
+.main__right-hr {
+  width: 76.61px;
+  background: #fff;
+  margin-top: -.4rem;
+  margin-bottom: .2rem;
+}
+
+.main__year {
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+}
+
+.stars {
+  margin-top: 23px;
+}
+
+.main__left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main__download {
+  margin: 35px 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.price-wrapper__h1 {
+  font-family: 'Segoe', sans-serif;
+  margin-bottom: 11px;
+  text-transform: capitalize;
+  font-size: 56px;
+  font-weight: 200;
+}
+
+.price__p {
+  font-family: 'SFlight', sans-serif;
+}
+
+.card__pricing {
+  font-size: 40px;
+}
+
+.card__list {
+  font-size: 16px;
+}
+
+.price-wrapper {
+  min-height: 745px;
+  background: #f5f5f5;
+}
+
+.price-content {
+  padding-top: 54px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 22px;
+}
+
+.price-header {
+  margin: 0 0 37px 0;
+}
+
+.main__img svg {
+  height: auto;
+  max-width: 100%;
+}
+
+.card-deck {
+  display: flex;
+  font-weight: 400;
+}
+
+.card__btn {
+  background: none;
+  //button
+  //padding: 0.4rem 3.3rem;
+
+  // a
+  padding: 0.7rem 3.3rem;
+  white-space: nowrap;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+  color: #007bff;
+  border: 1px solid #007bff;
+  transition: .2s ease-out;
+  cursor: pointer;
+  margin: 0 0 30px 0;
+
+  &:hover {
+    background: #007bff;
+    color: #fff;
+  }
+
+  &.btn__active {
+    background: #007bff;
+    color: #fff;
+
+    &:hover {
+      background-color: #0069d9;
+      border-color: #0069d9;
+    }
+  }
+}
+
+
+.card {
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  margin: 0 15px;
+  font-family: 'SFlight', sans-serif;
+}
+
+.text-muted {
+  color: #6c757d;
+  font-size: 32px;
+}
+
+.card__title {
+  font-weight: 400;
+}
+
+.card-header {
+  background-color: #F7F7F7;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  font-size: 24px;
+  padding: .75rem 1.25rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+  background: #fff;
+}
+
+.card__ul {
+  margin-bottom: 1.5rem;
+}
+
+
+
+@media (max-width: 1100px) {
+  .main__right-span  {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .main__right-span  {
+    font-size: 2rem;
+  }
+
+  .card-deck {
+    flex-direction: column;
+
+    .card {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+@media (max-height: $content-height-adaptive) {
+  main {
+    height: 100vh;
+  }
+
+  .main__right-hr {
+    margin: 5px auto;
+  }
+}

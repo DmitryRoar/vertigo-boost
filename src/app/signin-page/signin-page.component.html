@@ -1,0 +1,33 @@
+<form class="form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <span class="auth-header">Sign In</span>
+
+  <div class="validation-message" *ngIf="authService.error$ | async as error">
+    {{error}}
+  </div>
+  <input
+    type="email"
+    placeholder="Email"
+    class="auth__input"
+    formControlName="email"
+    [ngClass]="{
+    'validation-border__error': form.get('email').invalid && form.get('email').touched
+    }"
+  >
+  <input
+    type="password"
+    placeholder="Password"
+    class="auth__input"
+    formControlName="password"
+    [ngClass]="{
+    'validation-border__error': form.get('password').invalid && form.get('password').touched
+    }"
+  >
+  <span class="auth__info">Your email address you use to sign in to VertigoBoost, HoursBoost.</span>
+  <button type="submit" class="auth__btn" [disabled]="form.invalid">Continue</button>
+</form>
+
+<div class="auth-redirect">
+  <a [routerLink]="['/auth', 'create-account']">Create Account</a>
+  <span> / </span>
+  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>
+</div>

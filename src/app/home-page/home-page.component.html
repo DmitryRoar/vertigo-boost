@@ -1,0 +1,77 @@
+<main>
+
+  <div class="content main-wrapper">
+
+    <div class="main-content">
+      <div class="main__left">
+        <div class="main__img">
+          <img src="../../assets/img/panelText.svg" alt="vertigo-panel">
+
+        </div>
+        <div class="main__download">
+          <a href="#" class="main__btn">Download</a>
+        </div>
+      </div>
+      <div class="main__right">
+        <div class="main__right-header">
+          <span class="main__right-span">Vertigo Boost Panel</span>
+          <hr class="main__right-hr">
+          <p class="main__year">2020</p>
+
+          <div class="stars">
+            <img src="../../assets/img/stars.svg" alt="star">
+            <img src="../../assets/img/stars.svg" alt="star">
+            <img src="../../assets/img/stars.svg" alt="star">
+            <img src="../../assets/img/stars.svg" alt="star">
+            <img src="../../assets/img/stars.svg" alt="star">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+<div class="price-wrapper">
+  <div class="container price-content">
+
+    <div class="price-header">
+      <h1 class="price-wrapper__h1">Pricing</h1>
+      <p class="price__p">
+        Quickly and easily build your Empire of Prime Accounts with our Boosting Panels!<br>
+        They are assisted by Minimalism, Simplicity and Efficiency.
+      </p>
+    </div>
+
+    <div class="card-deck">
+
+      <div class="card" *ngFor="let price of pricingList">
+        <div class="card-header">
+          <h4 class="card__title">{{price.title || 'Light'}}</h4>
+        </div>
+        <div class="card-body">
+          <div class="card__pricing">
+            <span>${{price.price}}</span>
+            <small class="text-muted"> / mo</small>
+          </div>
+          <ul class="card__ul">
+            <li
+              class="card__list"
+              *ngFor="let privilege of price['privileges']"
+            >
+              {{privilege}}
+            </li>
+          </ul>
+          <a
+            href="#"
+            class="card__btn"
+            [class.btn__active]="price.active"
+          >
+            {{price.btnTitle || 'Start Free Trial'}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
