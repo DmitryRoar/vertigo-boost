@@ -1,3 +1,5 @@
+@import "src/assets/myStyles/variables";
+
 * {
   font-family: 'SFlight', sans-serif;
 }
@@ -8,4 +10,18 @@
   margin: 0 auto;
   padding: 0 10px;
   height: auto;
+}
+
+@media (max-width: 1030px) {
+  .some-wrapper {
+    border-radius: 0;
+    background: #fff;
+  }
+}
+
+@media (max-height: $content-height-adaptive) {
+  .some-wrapper {
+    border-radius: 0;
+    background: #fff;
+  }
 }

@@ -6,7 +6,10 @@
 
 .subscriptions-card {
   display: flex;
+  margin-bottom: 61px;
 }
+
+
 
 .card__ul {
   display: flex;
@@ -22,8 +25,11 @@
   font-size: 35px;
 }
 
+.marginTrans {
+  margin: 0 36px;
+}
+
 .card {
-  margin-right: 36px;
   border: 1px solid #D2D2D7;
   padding: 24px 30px 36px 30px;
   border-radius: 12px;
@@ -39,7 +45,6 @@
   padding: 7px 20px;
   font-size: 18px;
   position: relative;
-  right: 15px;
   z-index: 1;
 }
 
@@ -66,4 +71,60 @@
 
 .card__list {
   margin-bottom: 5px;
+}
+
+.card__span {
+  margin-bottom: 22px;
+}
+
+.pc-wrapper {
+
+}
+
+.card__span {
+  font-size: 18px;
+}
+
+
+
+.computer-wrapper, .computer-container {
+  display: flex;
+}
+
+.computer-container {
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 45px;
+  border: 1px solid #0071E3;
+  padding: 13px 34px;
+  border-radius: 12px;
+  margin-left: 20px;
+}
+
+.computer-desc {
+  margin-left: 20px;
+  white-space: nowrap;
+}
+
+@media (max-width: 1030px) {
+  .subscriptions-card {
+    flex-direction: column;
+  }
+
+  .card__list {
+    display: grid;
+  }
+
+  .marginTrans {
+    margin: 27px 0 0 0;
+  }
+
+  .computer-wrapper {
+    flex-direction: column;
+  }
+
+  .computer-container {
+    margin-bottom: 20px;
+  }
+
 }

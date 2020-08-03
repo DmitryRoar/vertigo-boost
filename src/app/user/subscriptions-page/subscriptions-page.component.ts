@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../../shared/services/user.service'
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -9,7 +10,7 @@ export class SubscriptionsPageComponent implements OnInit {
 
   date: Date = new Date()
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
   }

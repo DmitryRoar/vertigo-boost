@@ -6,49 +6,30 @@
     <h1 class="content__title">Subscriptions</h1>
 
     <div class="subscriptions-card">
-      <div class="temp">
-        <span class="upper-card__title">Lite version</span>
+      <div
+        class="temp"
+        [class.marginTrans]="item.marginTrans"
+        *ngFor="let item of userService.cardItems"
+      >
+        <span class="upper-card__title">{{item.version}} version</span>
 
         <div class="card">
           <ul class="card__ul">
 
-            <span>Vertigo Boost Panel</span>
+            <span class="card__span">Vertigo Boost Panel</span>
 
-            <!--        <li class="card__list">Time left: {{date | date:'HH:mm:ss'}}</li>-->
-            <li class="card__list card__input">Time left: {{date | date:'HH'}}h:{{date | date:'mm'}}m:{{date | date:'ss'}}s</li>
+            <!--<li class="card__list">Time left: {{date | date:'HH:mm:ss'}}</li>-->
+            <li class="card__list card__ input">
+                Time left: {{date | date:'HH'}}h:{{date | date:'mm'}}m:{{date | date:'ss'}}s
+            </li>
             <li class="card__list">
-              <input type="text" placeholder="enter code" class="card__input" value="6SBVGMS9TXMK2RUP">
+              <input type="text" placeholder="enter code" class="card__input" value="{{item.code}}">
             </li>
             <li class="card__list">
               <button type="button" class="card__input card__input-green">Activate code</button>
             </li>
             <li class="card__list card__input">
-              ALFRED-PC
-            </li>
-            <li class="card__list">
-              <button type="button" class="card__input card__input-red">Reset Device</button>
-            </li>
-          </ul>
-        </div>
-      </div><div class="subscriptions-card">
-      <div class="temp">
-        <span class="upper-card__title">Standard version</span>
-
-        <div class="card">
-          <ul class="card__ul">
-
-            <span>Vertigo Boost Panel</span>
-
-            <!--        <li class="card__list">Time left: {{date | date:'HH:mm:ss'}}</li>-->
-            <li class="card__list card__input">Time left: {{date | date:'HH'}}h:{{date | date:'mm'}}m:{{date | date:'ss'}}s</li>
-            <li class="card__list">
-              <input type="text" placeholder="enter code" class="card__input" value="6SBVGMS9TXMK2RUP">
-            </li>
-            <li class="card__list">
-              <button type="button" class="card__input card__input-green">Activate code</button>
-            </li>
-            <li class="card__list card__input">
-              ALFRED-PC
+              {{item.pc}}
             </li>
             <li class="card__list">
               <button type="button" class="card__input card__input-red">Reset Device</button>
@@ -57,36 +38,29 @@
         </div>
       </div>
 
-      <div class="subscriptions-card">
-        <div class="temp">
-          <span class="upper-card__title">Deluxe version</span>
 
-          <div class="card">
-            <ul class="card__ul">
+</div>
+</div>
+</div>
 
-              <span>Vertigo Boost Panel</span>
-
-              <!--<li class="card__list">Time left: {{date | date:'HH:mm:ss'}}</li>-->
-              <li class="card__list card__input">Time left: {{date | date:'HH'}}h:{{date | date:'mm'}}m:{{date | date:'ss'}}s</li>
-              <li class="card__list">
-                <input type="text" placeholder="enter code" class="card__input" value="6SBVGMS9TXMK2RUP">
-              </li>
-              <li class="card__list">
-                <button type="button" class="card__input card__input-green">Activate code</button>
-              </li>
-              <li class="card__list card__input">
-                ALFRED-PC
-              </li>
-              <li class="card__list">
-                <button type="button" class="card__input card__input-red">Reset Device</button>
-              </li>
-            </ul>
-          </div>
+  <div class="pc-wrapper">
+    <div class="computer-wrapper">
+      <div class="computer-container">
+        <img src="../../../assets/img/pc.svg" alt="pc">
+        <div class="computer-desc">
+          <span>#1 </span>
+          <span>Computer</span>
         </div>
+      </div>
 
+      <div class="computer-container">
+        <img src="../../../assets/img/pc.svg" alt="pc">
+        <div class="computer-desc">
+          <span>#2 </span>
+          <span>Computer</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-
-</div>
-</div>
-</div>
 </div>

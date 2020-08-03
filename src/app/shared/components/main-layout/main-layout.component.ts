@@ -10,8 +10,8 @@ import {Router} from '@angular/router'
 export class MainLayoutComponent implements OnInit {
 
   burgerOpen = false
-
   selectorOpen = false
+  mobileSelectorOpen = false
 
   constructor(
     public auth: AuthService

@@ -31,3 +31,10 @@ export interface FbAuthResponse {
   expiresIn: string
   idToken: string
 }
+
+export interface ISubscriptionItem {
+  version: string
+  code: string
+  pc: string
+  marginTrans?: boolean
+}

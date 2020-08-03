@@ -163,6 +163,12 @@ footer {
   }
 }
 
+@media (max-width: 1030px) {
+  .covid, footer {
+    display: none;
+  }
+}
+
 header.open {
   display: block;
   padding: 10px 0 0 0;
@@ -209,6 +215,7 @@ header.open {
   display: none;
   justify-content: space-around;
   font-family: 'SFlight', sans-serif;
+  z-index: 4;
 }
 
 .links-wrapper {
@@ -243,6 +250,8 @@ header.open {
 
 .selector-open {
   display: inline-flex;
+
+
 }
 
 .content {
