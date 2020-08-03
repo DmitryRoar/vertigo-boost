@@ -5,11 +5,8 @@
   display: none
 }
 
-.content {
-  max-width: 1418px;
-  width: 100%;
+.center {
   margin: 0 auto;
-  padding: 0 10px;
 }
 
 
@@ -22,10 +19,6 @@
   justify-content: center;
   flex-direction: column;
 }
-
-//.content-signin {
-//  height: $content-height;
-//}
 
 .content-wrapper {
   background: #131313;

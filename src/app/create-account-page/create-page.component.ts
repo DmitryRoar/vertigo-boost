@@ -33,7 +33,10 @@ export class CreateAccountPageComponent implements OnInit {
 
     if (!(password.trim() === repeatPassword.trim())) {
       this.message = 'Different password. Try again'
-      this.form.reset()
+      this.form.patchValue({
+        password: '',
+        repeatPassword: ''
+      })
       throw new Error('Разные пароли, далбоеб')
     }
 

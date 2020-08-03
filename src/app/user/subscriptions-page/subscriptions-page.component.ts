@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubscriptionsPageComponent implements OnInit {
 
+  date: Date = new Date()
+
   constructor() { }
 
   ngOnInit(): void {
