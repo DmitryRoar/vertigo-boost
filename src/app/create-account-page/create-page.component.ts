@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../shared/services/auth.service'
 import {IAuthData} from '../shared/interfaces'
@@ -13,7 +13,8 @@ export class CreateAccountPageComponent implements OnInit {
   form: FormGroup
   message = ''
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -24,26 +25,24 @@ export class CreateAccountPageComponent implements OnInit {
   }
 
   onSubmit() {
-    const {email, password} = this.form.value
+    const {email, password, repeatPassword} = this.form.value
     const data: IAuthData = {
       email, password,
       returnSecureToken: true
+    }
+
+    if (!(password.trim() === repeatPassword.trim())) {
+      this.message = 'Different password. Try again'
+      this.form.reset()
+      throw new Error('Разные пароли, далбоеб')
     }
 
     this.authService.signUp(data).subscribe(() => {
       this.authService.success()
       this.form.reset()
     }, () => {
-      this.message = 'Different password. Try again'
+      this.message = 'Something went wrong. Try again'
       this.form.reset()
     })
-
-
-  }
-
-  onChange() {
-    if (!this.form.value.password.trim() === this.form.value.repeatPassword) {
-      return
-    }
   }
 }

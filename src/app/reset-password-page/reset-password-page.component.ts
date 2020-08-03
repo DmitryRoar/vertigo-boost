@@ -22,9 +22,6 @@ export class ResetPasswordPageComponent implements OnInit {
 
   onSubmit() {
 
-
-    this.authService.resetPassword()
-
     this.authService.success()
     this.form.reset()
   }

@@ -77,9 +77,6 @@ export class AuthService {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
   }
 
-  resetPassword(data): Observable<any> {
-    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
-  }
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {
@@ -95,8 +92,7 @@ export class AuthService {
     try {
       await Swal.fire('Check your Email', '', 'success')
 
-
-      this.router.navigate(['/profile'])
+      this.router.navigate(['/profile', 'subscriptions'])
     } catch (e) {
       await Swal.fire('Something went wrong', '', 'error')
       this.router.navigate(['/'])
@@ -107,8 +103,8 @@ export class AuthService {
     Swal.fire('Something Went Wrong :3', '', 'error')
   }
 
-  changeNavbarItem(something = true) {
-    const navbarProfileLink: INavbar = {title: 'Profile', link: '/profile', changeLink: true}
+  changeNavbarItem(change = true) {
+    const navbarProfileLink: INavbar = {title: 'Profile', link: '/profile/subscriptions', changeLink: true}
 
     this.profileLinks = [
       {title: 'Subscriptions', link: '/profile/subscriptions'},
@@ -119,7 +115,7 @@ export class AuthService {
 
     this.navbarLinks.splice(-1)
 
-    if (something) {
+    if (change) {
       this.navbarLinks.push(navbarProfileLink)
     } else {
       this.navbarLinks.push({title: 'Sign In', link: '/auth'})

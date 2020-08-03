@@ -28,7 +28,6 @@ export class HomePageComponent implements OnInit {
       ], btnTitle: 'Contact us', active: true
     }
   ]
-
   constructor() {
   }
 

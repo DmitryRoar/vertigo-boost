@@ -10,7 +10,8 @@
       <ul class="navbar__ul">
         <li
           class="nav-item"
-          *ngFor="let navbarLink of auth.navbarLinks" (click)="burgerOpen = false"
+          *ngFor="let navbarLink of auth.navbarLinks"
+          (click)="burgerOpen = false; navbarLink.changeLink ? selectorOpen = false : null"
           (mouseenter)="navbarLink.changeLink ? selectorOpen = true : null"
           [class.selector-open]="navbarLink.changeLink"
         >

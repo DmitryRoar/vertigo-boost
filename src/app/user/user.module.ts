@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core'
 import {RouterModule, Routes} from '@angular/router'
-import {ProfilePageComponent} from './profile-page/profile-page.component'
 import {SharedModule} from '../shared/shared.module'
 import {SubscriptionsPageComponent} from './subscriptions-page/subscriptions-page.component'
 import {SettingsPageComponent} from './settings-page/settings-page.component'
@@ -12,7 +11,6 @@ const routes: Routes = [
     path: '',
     component: UserLayoutComponent,
     children: [
-      {path: '', pathMatch: 'full', component: ProfilePageComponent},
       {path: 'subscriptions', component: SubscriptionsPageComponent},
       {path: 'settings', component: SettingsPageComponent},
       {path: 'history', component: HistoryPageComponent}
