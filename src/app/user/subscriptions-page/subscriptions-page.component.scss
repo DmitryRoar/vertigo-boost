@@ -128,3 +128,32 @@
   }
 
 }
+
+.card__arrow {
+  display: none;
+}
+
+.fullPrice {
+  padding: 24px 30px 8px 30px;
+
+  .card__list {
+    display: none;
+    white-space: nowrap;
+  }
+
+  .card__time, .card__arrow {
+    display: block;
+    width: 257px;
+  }
+
+  .card__time {
+    margin-bottom: 8px;
+  }
+
+  .card__arrow {
+    button {
+      background: none;
+      border: 0;
+    }
+  }
+}

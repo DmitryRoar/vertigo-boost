@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../shared/services/user.service'
 
 @Component({
@@ -10,9 +10,13 @@ export class SubscriptionsPageComponent implements OnInit {
 
   date: Date = new Date()
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {
+  }
 
   ngOnInit(): void {
   }
 
+  changePrice(id) {
+    this.userService.cardItems.filter(el => el.id === id ? el.open = true : null)
+  }
 }

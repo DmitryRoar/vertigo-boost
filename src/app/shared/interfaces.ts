@@ -36,5 +36,8 @@ export interface ISubscriptionItem {
   version: string
   code: string
   pc: string
+  id: string
+  activated: boolean
+  open: boolean
   marginTrans?: boolean
 }
