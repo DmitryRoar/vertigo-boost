@@ -80,18 +80,14 @@
 
   <div class="pc-wrapper">
     <div class="computer-wrapper">
-      <div class="computer-container">
+      <div
+        class="computer-container"
+        [class.computer__active]="computer.active"
+        *ngFor="let computer of userService.computerInfo; let idx = index"
+      >
         <img src="../../../assets/img/pc.svg" alt="pc">
         <div class="computer-desc">
-          <span>#1 </span>
-          <span>Computer</span>
-        </div>
-      </div>
-
-      <div class="computer-container">
-        <img src="../../../assets/img/pc.svg" alt="pc">
-        <div class="computer-desc">
-          <span>#2 </span>
+          <span>#{{idx + 1}} </span>
           <span>Computer</span>
         </div>
       </div>

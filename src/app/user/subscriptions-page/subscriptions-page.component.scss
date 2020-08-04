@@ -95,7 +95,7 @@
   align-items: center;
   justify-content: space-around;
   margin-bottom: 45px;
-  border: 1px solid #0071E3;
+  border: 1px solid #D2D2D7;
   padding: 13px 34px;
   border-radius: 12px;
   margin-left: 20px;
@@ -167,4 +167,8 @@
   &::placeholder {
     text-transform: capitalize;
   }
+}
+
+.computer__active {
+  border: 1px solid #0071E3;
 }

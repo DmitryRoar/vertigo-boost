@@ -3,5 +3,70 @@
 .settings-wrapper {
   background: #ECECEC;
   width: 786px;
+  position: relative;
   height: $content-height;
+}
+
+.settings-data {
+  display: flex;
+  justify-content: space-between;
+  width: 83%;
+  margin: 0 auto;
+}
+
+.settings__logo {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+  }
+}
+
+.settings-info {
+  margin-left: 73px;
+}
+
+.settings__title {
+  font-size: 38px;
+  text-align: center;
+  padding: 89px 0 58px 0;
+}
+
+.settings__social {
+  font-size: 17px;
+  color: #6F7276;
+  line-height: 22px;
+}
+
+.settings__account {
+  font-size: 18px;
+  color: #2E3238;
+  margin-bottom: 25px;
+}
+
+.settings-edit {
+  button {
+    background: #DEDEDE;
+    border: 0;
+    color: #6F7276;
+    border-radius: 5px;
+    padding: 4px 42px;
+    font-size: 17px;
+  }
+}
+
+.settings-confirm {
+  display: flex;
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  img {
+    margin-left: 7px;
+    margin-bottom: 3px;
+  }
 }

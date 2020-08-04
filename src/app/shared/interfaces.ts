@@ -41,3 +41,9 @@ export interface ISubscriptionItem {
   open: boolean
   marginTrans?: boolean
 }
+
+export interface IComputerInfo {
+  name: string
+  id: string
+  active: boolean
+}
