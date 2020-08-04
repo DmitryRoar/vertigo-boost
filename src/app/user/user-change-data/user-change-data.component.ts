@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {UserService} from '../../shared/services/user.service'
-import {IAuthData, IUpdatePassword} from '../../shared/interfaces'
+import {IUpdatePassword} from '../../shared/interfaces'
 
 @Component({
   selector: 'app-user-change-data',
@@ -16,7 +16,8 @@ export class UserChangeDataComponent implements OnInit {
   form: FormGroup
   error = false
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -41,12 +42,12 @@ export class UserChangeDataComponent implements OnInit {
       this.form.reset()
       throw new Error('Разные пароли, далбоеб')
     }
-      this.userService.updatePassword(data).subscribe(() => {
-        this.newState.emit(this.prevState = false)
-        this.form.reset()
-      }, () => {
-        this.error = true
-        this.form.reset()
-      })
+    this.userService.updatePassword(data).subscribe(() => {
+      this.newState.emit(this.prevState = false)
+      this.form.reset()
+    }, () => {
+      this.error = true
+      this.form.reset()
+    })
   }
 }
