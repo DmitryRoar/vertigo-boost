@@ -11,7 +11,7 @@
 
 .settings-inputs {
   position: absolute;
-  top: 42%;
+  top: 340px;
   right: 48%;
   transform: translateX(50%);
 }
@@ -40,3 +40,21 @@
   }
 }
 
+@media (max-width: 1030px)  {
+  .settings-inputs {
+    right: 58%;
+    top: 400px;
+  }
+}
+
+//    height: calc(100vh + 297px);
+
+
+
+@media (max-width: 790px) {
+  .settings-inputs {
+    right: 50%;
+    top: 614px;
+    transform: translateX(50%);
+  }
+}

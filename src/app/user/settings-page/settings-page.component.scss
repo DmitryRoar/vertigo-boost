@@ -50,6 +50,7 @@
   button {
     background: none;
     border: 0;
+    min-width: 113px;
   }
 }
 
@@ -72,9 +73,12 @@
   left: 50%;
   transform: translateX(-50%);
 
+  span {
+    white-space: nowrap;
+  }
+
   img {
-    margin-left: 7px;
-    margin-bottom: 3px;
+    margin: 0 7px 3px 7px;
   }
 }
 
@@ -93,5 +97,63 @@
     font-size: 15px;
     background: none;
     border: 0;
+  }
+}
+
+@media (max-width: 1030px) {
+  .settings-wrapper {
+    width: 100vw;
+    height: calc(100vh + 42px);
+  }
+
+  .settings__title {
+    margin: 89px 0 58px 0;
+  }
+}
+
+@media (max-width: 790px) {
+
+  .settings-data, .settings__logo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings-info {
+    margin-left: 0;
+  }
+
+  .settings__branch {
+    margin-left: -5px;
+    display: flex;
+    margin-bottom: 10px;
+    img {
+      margin-right: 15px;
+    }
+
+    button {
+      font-size: 17px;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .settings-confirm {
+    span {
+      font-size: 13px;
+    }
+  }
+
+  .settings__account {
+    font-size: 16px;
+  }
+
+  .settings-edit {
+    margin: 0;
+  }
+}
+
+@media (max-height: 855px) {
+  .settings-wrapper {
+    height: calc(100vh + 325px);
   }
 }
