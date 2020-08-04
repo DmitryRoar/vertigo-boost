@@ -218,7 +218,7 @@ header.open {
 .section-wrapper {
   color: #E5E5E5;
   position: absolute;
-  top: 63px;
+  top: 61px;
   left: 590px;
   right: 0;
   display: none;
@@ -237,17 +237,28 @@ header.open {
 
 
   ul {
-    padding: 0 45px;
+    padding: 0 32px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       border-bottom: 1px solid #403D3D;
-      min-width: 107px;
-      padding: 0 0 8px 0;
+      min-width: 94px;
+      padding: 0 0 2px 0;
+      font-weight: 600;
+
+      &:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+        padding: 0;
+      }
+
+      a {
+        color: #E5E5E5;
+      }
     }
   }
 }
