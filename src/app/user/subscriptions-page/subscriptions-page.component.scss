@@ -161,3 +161,10 @@
 .card__time {
   color: #86868B;
 }
+
+.card__text {
+  text-transform: uppercase;
+  &::placeholder {
+    text-transform: capitalize;
+  }
+}

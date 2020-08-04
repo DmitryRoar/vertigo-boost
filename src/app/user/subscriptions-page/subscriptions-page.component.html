@@ -14,37 +14,62 @@
         <span class="upper-card__title">{{item.version}} version</span>
 
         <div class="card" [class.fullPrice]="!item.open">
-          <ul class="card__ul">
+          <ul class="card__ul" *ngIf="item.activated; else notActivated">
 
             <span class="card__span">Vertigo Boost Panel</span>
 
-            <!--<li class="card__list">Time left: {{date | date:'HH:mm:ss'}}</li>-->
-            <li class="card__list card__input card__time" *ngIf="item.activated; else notActivated">
+            <li class="card__list card__input card__time">
               Time left: {{date | date:'HH'}}h:{{date | date:'mm'}}m:{{date | date:'ss'}}s
             </li>
-            <ng-template #notActivated>
-              <li class="card__list card__input card__time">
-                Not Activated
-              </li>
-            </ng-template>
+
             <li class="card__list card__arrow">
               <button (click)="changePrice(item.id)">
                 <img src="../../../assets/img/arrowDown.svg" alt="">
               </button>
             </li>
             <li class="card__list">
-              <input type="text" placeholder="Enter Code" class="card__input" value="{{item.code}}" readonly>
+              <input type="text" placeholder="Enter Code" class="card__input card__text" value="{{item.code}}" readonly>
             </li>
             <li class="card__list">
               <button type="button" class="card__input card__input-green">Activate code</button>
             </li>
             <li class="card__list card__input">
-              {{item.pc || 'Empty'}}
+              {{item.pc}}
             </li>
             <li class="card__list">
               <button type="button" class="card__input card__input-red">Reset Device</button>
             </li>
           </ul>
+
+          <ng-template #notActivated>
+            <ul class="card__ul">
+
+              <span class="card__span">Vertigo Boost Panel</span>
+
+              <li class="card__list card__input card__time">
+                Not Activated
+              </li>
+
+              <li class="card__list card__arrow">
+                <button (click)="changePrice(item.id)">
+                  <img src="../../../assets/img/arrowDown.svg" alt="">
+                </button>
+              </li>
+              <li class="card__list">
+                <input type="text" placeholder="Enter Code" class="card__input card__text">
+              </li>
+              <li class="card__list">
+                <button type="button" class="card__input card__input-green">Activate code</button>
+              </li>
+              <li class="card__list card__input">
+                Empty
+              </li>
+              <li class="card__list">
+                <button type="button" class="card__input card__input-red">Reset Device</button>
+              </li>
+            </ul>
+          </ng-template>
+
         </div>
       </div>
 
