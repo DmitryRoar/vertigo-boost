@@ -1,0 +1,42 @@
+.settings-edit {
+  button {
+    // если ты новые кодер. Прошу простить за строчку ниже. Я устал, крайняя мера :(
+    float: right;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.settings-inputs {
+  position: absolute;
+  top: 42%;
+  right: 48%;
+  transform: translateX(50%);
+}
+
+.settings__input {
+
+  label {
+    margin-left: 10px;
+    font-size: 13px;
+
+    &::after {
+      content: ' *';
+      color: red;
+    }
+  }
+
+  input {
+    min-width: 298px;
+    border: 1px solid #D2D2D7;
+    border-radius: 12px;
+    padding: 5px 10px;
+
+    &.validation-border__error {
+      border: 1px solid red
+    }
+  }
+}
+

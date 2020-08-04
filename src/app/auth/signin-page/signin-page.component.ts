@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
-import {AuthService} from '../shared/services/auth.service'
-import {IAuthData} from '../shared/interfaces'
+import {AuthService} from '../../shared/services/auth.service'
+import {IAuthData} from '../../shared/interfaces'
 
 @Component({
   selector: 'app-signin-page',
@@ -11,6 +11,7 @@ import {IAuthData} from '../shared/interfaces'
 export class SignInPageComponent implements OnInit {
 
   form: FormGroup
+  error = false
 
   constructor(public authService: AuthService) {
   }
@@ -32,6 +33,7 @@ export class SignInPageComponent implements OnInit {
       this.authService.success()
       this.form.reset()
     }, () => {
+      this.error = true
       this.form.reset()
     })
   }

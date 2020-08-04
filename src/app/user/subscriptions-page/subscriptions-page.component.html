@@ -84,6 +84,7 @@
         class="computer-container"
         [class.computer__active]="computer.active"
         *ngFor="let computer of userService.computerInfo; let idx = index"
+        (click)="computerClick(computer.id)"
       >
         <img src="../../../assets/img/pc.svg" alt="pc">
         <div class="computer-desc">

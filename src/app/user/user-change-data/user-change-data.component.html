@@ -1,0 +1,50 @@
+<form class="form-wrapper" (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="settings-edit">
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Save
+    </button>
+  </div>
+
+  <div class="settings-inputs">
+
+    <div class="settings__input">
+      <label for="current">Current Password</label> <br>
+      <input
+        type="text"
+        id="current"
+        formControlName="currentPassword"
+        [ngClass]="{
+        'validation-border__error': (form.get('currentPassword').invalid && form.get('currentPassword').touched) || error
+        }"
+      >
+    </div>
+
+    <div class="settings__input">
+      <label for="password">New Password</label> <br>
+      <input
+        type="text"
+        id="password"
+        formControlName="newPassword"
+        [ngClass]="{
+        'validation-border__error': (form.get('newPassword').invalid && form.get('newPassword').touched) || error
+        }"
+      >
+    </div>
+
+    <div class="settings__input">
+      <label for="confirm">Repeat password</label> <br>
+      <input
+        type="text"
+        id="confirm"
+        formControlName="repeatPassword"
+        [ngClass]="{
+        'validation-border__error': (form.get('repeatPassword').invalid && form.get('repeatPassword').touched) || error
+        }"
+      >
+    </div>
+
+  </div>
+</form>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
-import {AuthService} from '../shared/services/auth.service'
-import {IAuthData} from '../shared/interfaces'
+import {AuthService} from '../../shared/services/auth.service'
+import {IAuthData} from '../../shared/interfaces'
 
 @Component({
   selector: 'app-create-page',

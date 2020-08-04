@@ -7,24 +7,51 @@
     <div class="settings-data">
 
       <div class="settings__logo">
-        <img src="../../../assets/img/roar_git.png" alt="avatar">
+        <div class="settings__branch">
+          <img src="../../../assets/img/roar_git.png" alt="avatar">
+          <button>Remove</button>
+        </div>
 
         <div class="settings-info">
           <div class="settings-info-up">
-            <span class="settings__social">Email</span>
-            <p class="settings__account">AlfredSha1337@gmail.com</p>
+            <p class="settings__social">Email</p>
+
+            <div class="settings__account">
+              <p>AlfredSha1337@gmail.com</p>
+              <button><img src="../../../assets/img/pen.svg" alt="pen"></button>
+            </div>
           </div>
 
           <div class="settings-info-down">
-            <span class="settings__social">Discord</span>
-            <p class="settings__account">xALFREDx#4666</p>
+            <p class="settings__social">Discord</p>
+
+            <div class="settings__account">
+              <p>xALFREDx#4666</p>
+              <button><img src="../../../assets/img/pen.svg" alt="pen"></button>
+            </div>
           </div>
+
         </div>
       </div>
 
 
       <div class="settings-edit">
-        <button>Edit</button>
+        <button
+          (click)="editBtn = true"
+          *ngIf="!editBtn; else saveBtn"
+        >
+          Edit
+        </button>
+
+        <ng-template #saveBtn>
+
+          <app-user-change-data
+            [prevState]="editBtn"
+            (newState)="backEditBtn($event)"
+          ></app-user-change-data>
+
+        </ng-template>
+
       </div>
 
     </div>

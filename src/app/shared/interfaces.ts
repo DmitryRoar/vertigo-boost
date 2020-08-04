@@ -47,3 +47,9 @@ export interface IComputerInfo {
   id: string
   active: boolean
 }
+
+export interface IUpdatePassword {
+  idToken: string
+  password: string
+  returnSecureToken: boolean
+}

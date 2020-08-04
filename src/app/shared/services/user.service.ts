@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core'
 import {IComputerInfo, ISubscriptionItem} from '../interfaces'
+import {HttpClient} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import {environment} from '../../../environments/environment'
 
 @Injectable()
 export class UserService {
@@ -13,4 +16,10 @@ export class UserService {
     {id: '1', name: 'Computer', active: true},
     {id: '2', name: 'Computer', active: false}
   ]
+
+  constructor(private http: HttpClient) {}
+
+  updatePassword(data):Observable<any> {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
+  }
 }

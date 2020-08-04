@@ -19,4 +19,8 @@ export class SubscriptionsPageComponent implements OnInit {
   changePrice(id) {
     this.userService.cardItems.filter(el => el.id === id ? el.open = true : null)
   }
+
+  computerClick(id: string) {
+    this.userService.computerInfo.filter(comp => comp.id === id ? comp.active = !comp.active : null)
+  }
 }

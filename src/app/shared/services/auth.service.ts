@@ -1,17 +1,15 @@
 import {Injectable} from '@angular/core'
 import {FbAuthResponse, INavbar, ISwal} from '../interfaces'
 import {Router} from '@angular/router'
-import {HttpClient, HttpErrorResponse} from '@angular/common/http'
+import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
-import {Observable, Subject, throwError} from 'rxjs'
-import {catchError, tap} from 'rxjs/operators'
+import {Observable, Subject} from 'rxjs'
+import {tap} from 'rxjs/operators'
 
 declare var Swal: ISwal
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-
-  error$: Subject<string> = new Subject<string>()
 
   navbarLinks: INavbar[] = [
     {title: 'Home', link: '/'},
@@ -39,24 +37,6 @@ export class AuthService {
     return localStorage.getItem('fb-token')
   }
 
-  private errorHandler(error: HttpErrorResponse) {
-    const {message} = error.error.error
-
-    switch (message) {
-      case 'EMAIL_NOT_FOUND':
-        this.error$.next('Email Not Found')
-        break
-      case 'INVALID_PASSWORD':
-        this.error$.next('Invalid Password')
-        break
-      case 'INVALID_EMAIL':
-        this.error$.next('Invalid Email')
-        break
-    }
-
-    return throwError(error)
-  }
-
   get isAuthenticated() {
     return !!this.token
   }
@@ -68,8 +48,7 @@ export class AuthService {
   login(data): Observable<any> {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, data)
       .pipe(
-        tap(this.setToken),
-        catchError(this.errorHandler.bind(this))
+        tap(this.setToken)
       )
   }
 

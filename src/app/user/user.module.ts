@@ -7,6 +7,8 @@ import {HistoryPageComponent} from './history-page/history-page.component'
 import {UserLayoutComponent} from '../shared/components/user-layout/user-layout.component'
 import {UserService} from '../shared/services/user.service'
 import {CommonModule} from '@angular/common'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { UserChangeDataComponent } from './user-change-data/user-change-data.component'
 
 const routes: Routes = [
   {
@@ -24,15 +26,19 @@ const routes: Routes = [
   declarations: [
     SubscriptionsPageComponent,
     SettingsPageComponent,
-    HistoryPageComponent
+    HistoryPageComponent,
+    UserChangeDataComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forChild(routes),
   ],
   providers: [UserService],
   exports: [RouterModule]
 })
+
 export class UserModule {
 }
