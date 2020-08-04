@@ -17,6 +17,9 @@
         >
           <a class="nav-link" routerLink='{{navbarLink.link}}'>{{navbarLink.title}}</a>
         </li>
+        <li *ngFor="let profileLinks of auth.profileLinks" class="nav-item profile-link">
+          <a class="nav-link" routerLink="{{profileLinks.link}}">{{profileLinks.title}}</a>
+        </li>
       </ul>
     </div>
   </nav>

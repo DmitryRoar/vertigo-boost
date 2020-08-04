@@ -142,6 +142,10 @@ footer {
   bottom: 9px;
 }
 
+.profile-link {
+  display: none;
+}
+
 @media (max-width: 918px) {
   header {
     justify-content: flex-start;
@@ -149,6 +153,11 @@ footer {
 
   .navbar {
     display: none;
+  }
+
+  .profile-link {
+    display: flex;
+    justify-content: center;
   }
 
   .header-menu__burger {
@@ -249,9 +258,8 @@ header.open {
 }
 
 .selector-open {
-  display: inline-flex;
-
-
+  display: flex;
+  justify-content: center;
 }
 
 .content {

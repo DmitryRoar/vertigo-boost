@@ -71,6 +71,10 @@
 
 .card__list {
   margin-bottom: 5px;
+
+  button {
+    white-space: nowrap;
+  }
 }
 
 .card__span {
