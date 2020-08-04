@@ -16,7 +16,7 @@ export class HomePageComponent implements OnInit {
       ], btnTitle: 'Start Free Trial', active: false
     },
     {
-      title: '', price: 9, privileges: [
+      title: 'Standard', price: 9, privileges: [
         'Create Lobby', 'Display Statistics',
         'Auto Game Acceptance', 'Auto Connect / Disconnect'
       ], btnTitle: 'Get started', active: true
