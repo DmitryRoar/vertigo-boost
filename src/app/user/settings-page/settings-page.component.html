@@ -10,6 +10,14 @@
         <div class="settings__branch">
           <img src="../../../assets/img/roar_git.png" alt="avatar">
           <button>Remove</button>
+
+<!--          <a class="settings__branch-hover" href="#">-->
+          <button  class="settings__branch-hover" type="button">
+            <button type="button" class="branch-hover__btn">
+              Change <br> Avatar
+            </button>
+          </button>
+<!--          </a>-->
         </div>
 
         <div class="settings-info">
@@ -17,8 +25,10 @@
             <p class="settings__social">Email</p>
 
             <div class="settings__account">
-              <p>AlfredSha1337@gmail.com</p>
-              <button><img src="../../../assets/img/pen.svg" alt="pen"></button>
+              <input type='text' value="AlfredSha1337@gmail.com" [disabled]="!editMail">
+              <button *ngIf="editBtn" (click)="editMail = true">
+                <img src="../../../assets/img/pen.svg" alt="pen">
+              </button>
             </div>
           </div>
 
@@ -26,8 +36,10 @@
             <p class="settings__social">Discord</p>
 
             <div class="settings__account">
-              <p>xALFREDx#4666</p>
-              <button><img src="../../../assets/img/pen.svg" alt="pen"></button>
+              <input type="text" value="xALFREDx#4666" [disabled]="!editDiscord" (change)="changeInput()">
+              <button *ngIf="editBtn" (click)="editDiscord = true">
+                <img src="../../../assets/img/pen.svg" alt="pen">
+              </button>
             </div>
           </div>
 
@@ -58,9 +70,14 @@
 
   </div>
 
-  <div class="settings-confirm">
-    <span>Confirmation link has been sent to your email!</span>
-    <img src="../../../assets/img/successStick.svg" alt="confirm email">
+  <div
+    class="settings-confirm"
+    *ngIf="!showConfirmEmail"
+  >
+    <a>
+      Confirmation link has been sent to your email!
+      <img src="../../../assets/img/successStick.svg" alt="confirm email">
+    </a>
   </div>
 
 </div>

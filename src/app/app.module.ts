@@ -13,6 +13,8 @@ import {ResetPasswordPageComponent} from './auth/reset-password-page/reset-passw
 import {ErrorPageComponent} from './shared/components/error-page/error-page.component'
 import {SharedModule} from './shared/shared.module'
 import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component'
+import {ProductsPageComponent} from './products-page/products-page.component'
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {UserLayoutComponent} from './shared/components/user-layout/user-layout.c
     CreateAccountPageComponent,
     ResetPasswordPageComponent,
     ErrorPageComponent,
-    UserLayoutComponent
+    UserLayoutComponent,
+    ProductsPageComponent
   ],
   imports: [
     BrowserModule,

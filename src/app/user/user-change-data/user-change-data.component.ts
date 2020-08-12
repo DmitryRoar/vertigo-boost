@@ -25,17 +25,17 @@ export class UserChangeDataComponent implements OnInit {
       newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
     })
+
   }
 
   onSubmit() {
-    const {currentPassword, newPassword, repeatPassword} = this.form.value
+    const {newPassword, repeatPassword} = this.form.value
     const idToken = localStorage.getItem('fb-token')
     const data: IUpdatePassword = {
       idToken,
       password: newPassword,
       returnSecureToken: true
     }
-    console.log(data)
 
     if (!(newPassword.trim() === repeatPassword.trim())) {
       this.error = true
@@ -45,7 +45,11 @@ export class UserChangeDataComponent implements OnInit {
     this.userService.updatePassword(data).subscribe(() => {
       this.newState.emit(this.prevState = false)
       this.form.reset()
-    }, () => {
+    }, error => {
+      // if (error) {
+        console.log(error)
+      // }
+
       this.error = true
       this.form.reset()
     })

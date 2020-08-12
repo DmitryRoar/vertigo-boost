@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core'
-import {FbAuthResponse, INavbar, ISwal} from '../interfaces'
-import {Router} from '@angular/router'
+import {FbAuthResponse, IAuthData, IConfirmEmail, INavbar, ISwal} from '../interfaces'
+import {ActivatedRoute, Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
-import {Observable, Subject} from 'rxjs'
+import {Observable} from 'rxjs'
 import {tap} from 'rxjs/operators'
 
 declare var Swal: ISwal
@@ -14,7 +14,7 @@ export class AuthService {
   navbarLinks: INavbar[] = [
     {title: 'Home', link: '/'},
     {title: 'News', link: '/'},
-    {title: 'Products', link: '/'},
+    {title: 'Products', link: '/products'},
     {title: 'Support', link: '/'},
     {title: 'Sign In', link: '/auth'}
   ]
@@ -23,17 +23,12 @@ export class AuthService {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private http: HttpClient
   ) {
   }
 
   get token(): string {
-    const expDate = new Date(localStorage.getItem('fb-token-exp'))
-    if (new Date() > expDate) {
-      this.logout()
-      return null
-    }
-
     return localStorage.getItem('fb-token')
   }
 
@@ -45,26 +40,43 @@ export class AuthService {
     this.setToken(null)
   }
 
-  login(data): Observable<any> {
+  login(data: IAuthData): Observable<any> {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, data)
       .pipe(
         tap(this.setToken)
       )
   }
 
-  signUp(data): Observable<any> {
+  signUp(data: IAuthData): Observable<any> {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
   }
 
+  confirmEmail(data): Observable<any> {
+    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
+  }
+
+  checkUserData(data): Observable<any> {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, data)
+  }
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {
-      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000)
       localStorage.setItem('fb-token', response.idToken)
-      localStorage.setItem('fb-token-exp', expDate.toString())
     } else {
       localStorage.clear()
     }
+  }
+
+  getIdTokenForConfirmEmail(idToken): IConfirmEmail {
+    return {
+      requestType: 'VERIFY_EMAIL',
+      idToken
+    }
+  }
+
+  get getToken() {
+    const idToken = localStorage.getItem('fb-token')
+    return this.getIdTokenForConfirmEmail(idToken)
   }
 
   async success() {
@@ -76,10 +88,6 @@ export class AuthService {
       await Swal.fire('Something went wrong', '', 'error')
       this.router.navigate(['/'])
     }
-  }
-
-  wrong() {
-    Swal.fire('Something Went Wrong :3', '', 'error')
   }
 
   changeNavbarItem(change = true) {

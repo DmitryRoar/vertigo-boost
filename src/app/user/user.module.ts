@@ -7,14 +7,15 @@ import {HistoryPageComponent} from './history-page/history-page.component'
 import {UserLayoutComponent} from '../shared/components/user-layout/user-layout.component'
 import {UserService} from '../shared/services/user.service'
 import {CommonModule} from '@angular/common'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { UserChangeDataComponent } from './user-change-data/user-change-data.component'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {UserChangeDataComponent} from './user-change-data/user-change-data.component'
 
 const routes: Routes = [
   {
     path: '',
     component: UserLayoutComponent,
     children: [
+      {path: '', pathMatch: 'full', redirectTo: 'subscriptions'},
       {path: 'subscriptions', component: SubscriptionsPageComponent},
       {path: 'settings', component: SettingsPageComponent},
       {path: 'history', component: HistoryPageComponent}

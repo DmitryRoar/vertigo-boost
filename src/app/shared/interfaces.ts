@@ -28,7 +28,7 @@ export interface IAuthData {
 }
 
 export interface FbAuthResponse {
-  expiresIn: string
+  expiresIn?: string
   idToken: string
 }
 
@@ -52,4 +52,9 @@ export interface IUpdatePassword {
   idToken: string
   password: string
   returnSecureToken: boolean
+}
+
+export interface IConfirmEmail {
+  requestType: string
+  idToken: string
 }

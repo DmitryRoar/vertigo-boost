@@ -50,7 +50,16 @@
   button {
     background: none;
     border: 0;
-    min-width: 113px;
+  }
+
+  input {
+    background: none;
+    border: 0;
+    color: red;
+
+    &:disabled {
+      color: #000;
+    }
   }
 }
 
@@ -67,14 +76,16 @@
 }
 
 .settings-confirm {
-  display: flex;
   position: absolute;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
 
-  span {
+  a {
     white-space: nowrap;
+    color: #000;
+    display: flex;
+    cursor: pointer;
   }
 
   img {
@@ -82,14 +93,46 @@
   }
 }
 
+.settings__branch-hover {
+  display: none;
+
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+
+
+  .branch-hover__btn {
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .settings__branch {
   text-align: center;
+  position: relative;
+
+  &:hover {
+    .settings__branch-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background: rgba(236, 236, 236, .4);
+    }
+  }
 
   img {
     margin-bottom: 5px;
     width: 128px;
     height: 128px;
     border-radius: 50%;
+
+
   }
 
   button {

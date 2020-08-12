@@ -1,0 +1,52 @@
+@import 'src/assets/myStyles/variables';
+
+* {
+  font-family: 'SFlight', sans-serif;
+}
+
+.products-wrapper {
+  background: #131313;
+  height: $content-height;
+  border-bottom: 1px solid #222222;
+}
+
+.products {
+  color: #fff;
+  justify-content: center;
+  padding: 127px 0 0 0;
+  display: flex;
+
+  &__img {
+    position: relative;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 50%;
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 0 0 0;
+
+      li {
+        text-align: center;
+
+        img {
+          margin: 0 auto 10px auto;
+        }
+
+        &:nth-child(2) {
+          position: absolute;
+          bottom: -180px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

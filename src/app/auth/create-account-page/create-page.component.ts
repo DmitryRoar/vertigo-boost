@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/services/auth.service'
-import {IAuthData} from '../../shared/interfaces'
+import {IAuthData, IConfirmEmail} from '../../shared/interfaces'
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-create-page',
@@ -13,7 +14,7 @@ export class CreateAccountPageComponent implements OnInit {
   form: FormGroup
   message = ''
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,12 +41,17 @@ export class CreateAccountPageComponent implements OnInit {
       throw new Error('Разные пароли, далбоеб')
     }
 
-    this.authService.signUp(data).subscribe(() => {
+    this.authService.signUp(data).subscribe(response => {
       this.authService.success()
       this.form.reset()
+
+      // this.authService.confirmEmail(this.authService.getToken).subscribe(() => {
+      //   console.log('bussdown')
+      // })
     }, () => {
       this.message = 'Something went wrong. Try again'
       this.form.reset()
     })
+
   }
 }
