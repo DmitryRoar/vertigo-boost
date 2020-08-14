@@ -27,7 +27,6 @@ const routes: Routes = [
               {path: '', pathMatch: 'full', component: SignInPageComponent},
               {path: 'create-account', component: CreateAccountPageComponent},
               {path: 'reset-password', redirectTo: ''}
-              // {path: 'reset-password', component: ResetPasswordPageComponent}
             ]
           },
           {path: 'profile', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]}

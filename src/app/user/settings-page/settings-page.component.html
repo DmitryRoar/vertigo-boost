@@ -1,4 +1,4 @@
-<div class="settings-wrapper">
+<div class="settings-wrapper" *ngIf="emailSearch; else loading">
   <div class="settings-content">
 
     <div class="settings__title">
@@ -8,16 +8,14 @@
 
       <div class="settings__logo">
         <div class="settings__branch">
-          <img src="../../../assets/img/roar_git.png" alt="avatar">
+          <img [src]="photoUrl" alt="avatar">
           <button>Remove</button>
 
-<!--          <a class="settings__branch-hover" href="#">-->
           <button  class="settings__branch-hover" type="button">
-            <button type="button" class="branch-hover__btn">
+            <button type="button" class="branch-hover__btn" (click)="openInputForSearchUrl()">
               Change <br> Avatar
             </button>
           </button>
-<!--          </a>-->
         </div>
 
         <div class="settings-info">
@@ -25,7 +23,7 @@
             <p class="settings__social">Email</p>
 
             <div class="settings__account">
-              <input type='text' value="AlfredSha1337@gmail.com" [disabled]="!editMail">
+              <input type='text' [value]="emailSearch" [disabled]="!editMail">
               <button *ngIf="editBtn" (click)="editMail = true">
                 <img src="../../../assets/img/pen.svg" alt="pen">
               </button>
@@ -36,7 +34,7 @@
             <p class="settings__social">Discord</p>
 
             <div class="settings__account">
-              <input type="text" value="xALFREDx#4666" [disabled]="!editDiscord" (change)="changeInput()">
+              <input type="text" value="xALFREDx#4666" [disabled]="!editDiscord">
               <button *ngIf="editBtn" (click)="editDiscord = true">
                 <img src="../../../assets/img/pen.svg" alt="pen">
               </button>
@@ -81,3 +79,11 @@
   </div>
 
 </div>
+
+<ng-template #loading>
+  <p>loading...</p>
+</ng-template>
+<!--
+  при нажатии на картинку открывается модалка с инпутом куда вводится url картинки.
+  этот url отправляется на realtimeDB после чего мы его изменяем
+-->

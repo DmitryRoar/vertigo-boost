@@ -9,7 +9,7 @@ export class UserService {
   cardItems: ISubscriptionItem[] = [
     {id: '1', open: false, version: 'Lite', code: '6SBVGMS9TXMK2RUP', pc: 'ALFRED-PC', activated: true},
     {id: '2', open: false, version: 'Standard', code: '6SBVGMS9TXMK2RUP', pc: 'ALFRED-PC', marginTrans: true, activated: true},
-    {id: '3', open: false, version: 'Deluxe', code: 'XUY', pc: 'ROAR-PC', activated: false}
+    {id: '3', open: false, version: 'Deluxe', code: 'CODE HERE', pc: 'ROAR-PC', activated: false}
   ]
 
   computerInfo: IComputerInfo[] = [
@@ -21,5 +21,13 @@ export class UserService {
 
   updatePassword(data):Observable<any> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
+  }
+
+  sendImageUrl(imageUrl): Observable<any> {
+    return this.http.post(`${environment.fbDbUrl}/imageUrl.json`, imageUrl)
+  }
+
+  takeImageUrl(): Observable<any> {
+    return this.http.get(`${environment.fbDbUrl}/imageUrl.json`)
   }
 }

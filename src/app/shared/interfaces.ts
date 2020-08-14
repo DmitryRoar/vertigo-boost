@@ -17,8 +17,18 @@ export interface IPricing {
   active: boolean
 }
 
-export interface ISwal {
+export interface ISwalBtn {
   fire: (reason: string, more: string, output: string) => any
+}
+
+interface ISwalInputProps {
+  title: string
+  input: string
+  inputAttributes: object
+}
+
+export interface ISwalInput {
+  fire: (options: ISwalInputProps) => any
 }
 
 export interface IAuthData {
@@ -28,7 +38,7 @@ export interface IAuthData {
 }
 
 export interface FbAuthResponse {
-  expiresIn?: string
+  expiresIn: string
   idToken: string
 }
 

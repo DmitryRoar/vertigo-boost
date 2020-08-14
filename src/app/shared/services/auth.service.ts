@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core'
-import {FbAuthResponse, IAuthData, IConfirmEmail, INavbar, ISwal} from '../interfaces'
+import {FbAuthResponse, IAuthData, INavbar, ISwalBtn} from '../interfaces'
 import {ActivatedRoute, Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
 import {Observable} from 'rxjs'
 import {tap} from 'rxjs/operators'
 
-declare var Swal: ISwal
+declare var Swal: ISwalBtn
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -29,6 +29,11 @@ export class AuthService {
   }
 
   get token(): string {
+    const expDate = new Date(localStorage.getItem('fb-token-exp'))
+    if (new Date() > expDate) {
+      this.logout()
+      return null
+    }
     return localStorage.getItem('fb-token')
   }
 
@@ -51,38 +56,23 @@ export class AuthService {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
   }
 
-  confirmEmail(data): Observable<any> {
-    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
-  }
-
   checkUserData(data): Observable<any> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, data)
   }
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {
+      const expDate = new Date(Date.now() + +response.expiresIn * 3600)
       localStorage.setItem('fb-token', response.idToken)
+      localStorage.setItem('fb-token-exp', expDate.toString())
     } else {
       localStorage.clear()
     }
   }
 
-  getIdTokenForConfirmEmail(idToken): IConfirmEmail {
-    return {
-      requestType: 'VERIFY_EMAIL',
-      idToken
-    }
-  }
-
-  get getToken() {
-    const idToken = localStorage.getItem('fb-token')
-    return this.getIdTokenForConfirmEmail(idToken)
-  }
-
   async success() {
     try {
       await Swal.fire('Check your Email', '', 'success')
-
       this.router.navigate(['/profile', 'subscriptions'])
     } catch (e) {
       await Swal.fire('Something went wrong', '', 'error')

@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {UserService} from '../../shared/services/user.service'
 import {IUpdatePassword} from '../../shared/interfaces'
+import {AuthService} from '../../shared/services/auth.service'
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-user-change-data',
@@ -16,7 +18,11 @@ export class UserChangeDataComponent implements OnInit {
   form: FormGroup
   error = false
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private auth: AuthService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,16 +46,15 @@ export class UserChangeDataComponent implements OnInit {
     if (!(newPassword.trim() === repeatPassword.trim())) {
       this.error = true
       this.form.reset()
-      throw new Error('Разные пароли, далбоеб')
+      throw new Error('Разные пароли')
     }
     this.userService.updatePassword(data).subscribe(() => {
+      this.auth.logout()
+      this.router.navigate(['/auth'])
+
       this.newState.emit(this.prevState = false)
       this.form.reset()
     }, error => {
-      // if (error) {
-        console.log(error)
-      // }
-
       this.error = true
       this.form.reset()
     })

@@ -1,6 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core'
 import {AuthService} from '../../shared/services/auth.service'
-import {ActivatedRoute, Params} from '@angular/router'
+import {ISwalInput} from '../../shared/interfaces'
+import {UserService} from '../../shared/services/user.service'
+
+declare var Swal: ISwalInput
 
 @Component({
   selector: 'app-settings-page',
@@ -10,29 +13,30 @@ import {ActivatedRoute, Params} from '@angular/router'
 })
 export class SettingsPageComponent implements OnInit {
 
+  emailSearch = ''
+  photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png'
+
   editMail = false
   editDiscord = false
+
   editBtn = false
 
   showConfirmEmail: boolean
 
   constructor(
     private auth: AuthService,
-    private route: ActivatedRoute
+    private user: UserService
   ) {
   }
 
   ngOnInit(): void {
-    this.checkQueryParamsForConfirmEmail()
-    const oobCode = localStorage.getItem('fb-oobCode')
-    if (oobCode) {
-      this.auth.confirmEmail({oobCode}).subscribe(data => {
-        console.log(data)
-      })
-    }
-
     this.userData().subscribe(data => {
       this.showConfirmEmail = data.users[0].emailVerified
+      this.emailSearch = data.users[0].email
+      console.log('photoUrl', data.users[0])
+      this.user.takeImageUrl().subscribe((imageUrl) => {
+        console.log('takeUrl', imageUrl)
+      })
     })
   }
 
@@ -40,22 +44,27 @@ export class SettingsPageComponent implements OnInit {
     this.editBtn = newState
   }
 
-  changeInput() {
-    console.log('hello')
-  }
-
-  checkQueryParamsForConfirmEmail() {
-    this.route.queryParams.subscribe((params: Params) => {
-      if (params.oobCode) {
-        localStorage.setItem('fb-oobCode', params.oobCode)
-      }
-    })
-  }
-
   userData() {
     const idToken = {
       idToken: localStorage.getItem('fb-token')
     }
     return this.auth.checkUserData(idToken)
+  }
+
+  async openInputForSearchUrl() {
+    try {
+      const SwalInput = await Swal.fire({
+        title: 'Enter Image URL',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        }
+      })
+      this.user.sendImageUrl({imageUrl: SwalInput.value}).subscribe(() => {
+        console.log('send')
+      })
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
