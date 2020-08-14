@@ -22,7 +22,7 @@
     }"
   >
   <span class="auth__info">Your email address you use to sign in to VertigoBoost, HoursBoost.</span>
-  <button type="submit" class="auth__btn" [disabled]="form.invalid">Continue</button>
+  <button type="submit" class="auth__btn" [disabled]="form.invalid || formDisabled">Continue</button>
 </form>
 
 <div class="auth-redirect">

@@ -11,7 +11,10 @@ import {IAuthData} from '../../shared/interfaces'
 export class SignInPageComponent implements OnInit {
 
   form: FormGroup
+
+
   error = false
+  formDisabled = false
 
   constructor(public authService: AuthService) {
   }
@@ -24,6 +27,7 @@ export class SignInPageComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formDisabled = true
     const {email, password} = this.form.value
     const data: IAuthData = {
     email, password,
@@ -34,6 +38,7 @@ export class SignInPageComponent implements OnInit {
       this.form.reset()
     }, () => {
       this.error = true
+      this.formDisabled = false
       this.form.reset()
     })
   }

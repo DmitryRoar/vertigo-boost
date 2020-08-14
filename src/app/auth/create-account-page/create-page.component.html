@@ -34,7 +34,7 @@
   <button
     type="submit"
     class="auth__btn"
-    [disabled]="form.invalid"
+    [disabled]="form.invalid || formDisabled"
   >
     Continue
   </button>

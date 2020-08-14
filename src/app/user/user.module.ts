@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {path: '', pathMatch: 'full', redirectTo: 'subscriptions'},
       {path: 'subscriptions', component: SubscriptionsPageComponent},
-      {path: 'settings', component: SettingsPageComponent},
+      {path: 'settings/:id', component: SettingsPageComponent},
       {path: 'history', component: HistoryPageComponent}
     ]
   }

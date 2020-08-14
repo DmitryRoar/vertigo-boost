@@ -3,6 +3,7 @@ import {IComputerInfo, ISubscriptionItem} from '../interfaces'
 import {HttpClient} from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {environment} from '../../../environments/environment'
+import {map} from 'rxjs/operators'
 
 @Injectable()
 export class UserService {
@@ -23,11 +24,11 @@ export class UserService {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
   }
 
-  sendImageUrl(imageUrl): Observable<any> {
-    return this.http.post(`${environment.fbDbUrl}/imageUrl.json`, imageUrl)
+  sendImageUrl(id, imageUrl): Observable<any> {
+    return this.http.post(`${environment.fbDbUrl}/users/user/${id}.json`, imageUrl)
   }
 
-  takeImageUrl(): Observable<any> {
-    return this.http.get(`${environment.fbDbUrl}/imageUrl.json`)
+  takeImageUrl(id): Observable<any> {
+    return this.http.get(`${environment.fbDbUrl}/users/user/${id}.json`)
   }
 }

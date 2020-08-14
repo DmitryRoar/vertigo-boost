@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
 import {Observable} from 'rxjs'
-import {tap} from 'rxjs/operators'
+import {map, tap} from 'rxjs/operators'
 
 declare var Swal: ISwalBtn
 
@@ -52,7 +52,8 @@ export class AuthService {
       )
   }
 
-  signUp(data: IAuthData): Observable<any> {
+  signUp(id, data: IAuthData): Observable<any> {
+    this.http.post<any>(`${environment.fbDbUrl}/users/user/${id}`, data)
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
   }
 
@@ -85,7 +86,7 @@ export class AuthService {
 
     this.profileLinks = [
       {title: 'Subscriptions', link: '/profile/subscriptions'},
-      {title: 'Settings', link: '/profile/settings'},
+      {title: 'Settings', link: `/profile/settings/${'42'}`},
       {title: 'History', link: '/profile/history'},
       {title: 'Logout', link: '/', changeLink: true}
     ]

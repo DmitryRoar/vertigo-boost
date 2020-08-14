@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/services/auth.service'
-import {IAuthData, IConfirmEmail} from '../../shared/interfaces'
-import {Router} from '@angular/router'
+import {IAuthData} from '../../shared/interfaces'
+import {ActivatedRoute, Router} from '@angular/router'
 
 @Component({
   selector: 'app-create-page',
@@ -12,9 +12,12 @@ import {Router} from '@angular/router'
 export class CreateAccountPageComponent implements OnInit {
 
   form: FormGroup
-  message = ''
 
-  constructor(private authService: AuthService, private router: Router) {
+  message = ''
+  formDisabled = false
+
+  constructor(
+    private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,7 @@ export class CreateAccountPageComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formDisabled = true
     const {email, password, repeatPassword} = this.form.value
     const data: IAuthData = {
       email, password,
@@ -38,17 +42,15 @@ export class CreateAccountPageComponent implements OnInit {
         password: '',
         repeatPassword: ''
       })
-      throw new Error('Разные пароли, далбоеб')
+      throw new Error('Разные пароли')
     }
 
-    this.authService.signUp(data).subscribe(response => {
+    this.authService.signUp('42', data).subscribe(response => {
+      console.log('resopone', response)
       this.authService.success()
       this.form.reset()
-
-      // this.authService.confirmEmail(this.authService.getToken).subscribe(() => {
-      //   console.log('bussdown')
-      // })
     }, () => {
+      this.formDisabled = false
       this.message = 'Something went wrong. Try again'
       this.form.reset()
     })

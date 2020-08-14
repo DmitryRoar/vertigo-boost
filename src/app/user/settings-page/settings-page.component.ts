@@ -2,6 +2,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core'
 import {AuthService} from '../../shared/services/auth.service'
 import {ISwalInput} from '../../shared/interfaces'
 import {UserService} from '../../shared/services/user.service'
+import {ActivatedRoute, Params} from '@angular/router'
+import {switchMap} from 'rxjs/operators'
 
 declare var Swal: ISwalInput
 
@@ -14,7 +16,9 @@ declare var Swal: ISwalInput
 export class SettingsPageComponent implements OnInit {
 
   emailSearch = ''
-  photoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png'
+
+  photoUrl = ''
+  defaultPhotoUrl = 'https://avatars1.githubusercontent.com/u/31390354?s=460&u=082a54d4c1305116b9b434f109d7965c26007643&v=4'
 
   editMail = false
   editDiscord = false
@@ -22,10 +26,13 @@ export class SettingsPageComponent implements OnInit {
   editBtn = false
 
   showConfirmEmail: boolean
+  // temp
+  localId = ''
 
   constructor(
     private auth: AuthService,
-    private user: UserService
+    private user: UserService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -33,10 +40,20 @@ export class SettingsPageComponent implements OnInit {
     this.userData().subscribe(data => {
       this.showConfirmEmail = data.users[0].emailVerified
       this.emailSearch = data.users[0].email
-      console.log('photoUrl', data.users[0])
-      this.user.takeImageUrl().subscribe((imageUrl) => {
-        console.log('takeUrl', imageUrl)
+      this.localId = data.users[0].localId
+    })
+
+    this.route.params.pipe(
+      switchMap((params: Params) => {
+        return this.user.takeImageUrl(params['id'])
       })
+    ).subscribe((image) => {
+      console.log(image)
+      if (image) {
+        this.photoUrl = image.imageUrl
+      } else {
+        this.photoUrl = this.defaultPhotoUrl
+      }
     })
   }
 
@@ -60,8 +77,9 @@ export class SettingsPageComponent implements OnInit {
           autocapitalize: 'off'
         }
       })
-      this.user.sendImageUrl({imageUrl: SwalInput.value}).subscribe(() => {
-        console.log('send')
+      if (!SwalInput.value) return
+      this.user.sendImageUrl(this.localId, {imageUrl: SwalInput.value}).subscribe((data) => {
+        console.log('%csend', 'color: red')
       })
     } catch (e) {
       console.log(e)
