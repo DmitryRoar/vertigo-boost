@@ -30,4 +30,8 @@ export class UserService {
   takeImageUrl(id): Observable<any> {
     return this.http.get(`${environment.fbDbUrl}/users/${id}.json`)
   }
+
+  checkUserData(data): Observable<any> {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, data)
+  }
 }

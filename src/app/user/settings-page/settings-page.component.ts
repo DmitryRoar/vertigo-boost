@@ -22,12 +22,8 @@ export class SettingsPageComponent implements OnInit {
 
   editMail = false
   editDiscord = false
-
   editBtn = false
-
   showConfirmEmail: boolean
-  // temp
-  localId = ''
 
   constructor(
     private auth: AuthService,
@@ -42,13 +38,14 @@ export class SettingsPageComponent implements OnInit {
         return this.user.takeImageUrl(params['id'])
       })
     ).subscribe((image) => {
-      console.log(image)
       if (image) {
         this.photoUrl = image.imageUrl
       } else {
         this.photoUrl = this.defaultPhotoUrl
       }
     })
+
+    this.checkData()
   }
 
   backEditBtn(newState) {
@@ -71,5 +68,11 @@ export class SettingsPageComponent implements OnInit {
     } catch (e) {
       console.log(e)
     }
+  }
+
+  checkData() {
+    this.user.checkUserData({idToken: localStorage.getItem('fb-token')}).subscribe(data => {
+      this.emailSearch = data.users[0].email
+    })
   }
 }
