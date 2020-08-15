@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core'
 import {UserService} from '../../shared/services/user.service'
-import {AuthService} from '../../shared/services/auth.service'
 
 @Component({
   selector: 'app-subscriptions-page',

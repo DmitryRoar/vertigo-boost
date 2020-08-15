@@ -37,12 +37,6 @@ export class SettingsPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userData().subscribe(data => {
-      this.showConfirmEmail = data.users[0].emailVerified
-      this.emailSearch = data.users[0].email
-      this.localId = data.users[0].localId
-    })
-
     this.route.params.pipe(
       switchMap((params: Params) => {
         return this.user.takeImageUrl(params['id'])
@@ -59,13 +53,6 @@ export class SettingsPageComponent implements OnInit {
 
   backEditBtn(newState) {
     this.editBtn = newState
-  }
-
-  userData() {
-    const idToken = {
-      idToken: localStorage.getItem('fb-token')
-    }
-    return this.auth.checkUserData(idToken)
   }
 
   async openInputForSearchUrl() {

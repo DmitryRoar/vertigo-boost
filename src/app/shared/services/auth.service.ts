@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
 import {Observable} from 'rxjs'
-import {map, tap} from 'rxjs/operators'
+import {map, switchMap, tap} from 'rxjs/operators'
 
 declare var Swal: ISwalBtn
 
@@ -52,13 +52,16 @@ export class AuthService {
       )
   }
 
-  signUp(id, data: IAuthData): Observable<any> {
-    this.http.post<any>(`${environment.fbDbUrl}/users/user/${id}`, data)
+  signUp(data: IAuthData): Observable<any> {
     return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
-  }
-
-  checkUserData(data): Observable<any> {
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, data)
+      .pipe(
+        map(response => ({
+          ...response, imageUrl: ''
+        })),
+        switchMap(data => {
+          return this.http.post<any>(`${environment.fbDbUrl}/users.json`, data)
+        })
+      )
   }
 
   private setToken(response: FbAuthResponse | null) {

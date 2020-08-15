@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/services/auth.service'
 import {IAuthData} from '../../shared/interfaces'
-import {ActivatedRoute, Router} from '@angular/router'
 
 @Component({
   selector: 'app-create-page',
@@ -45,8 +44,8 @@ export class CreateAccountPageComponent implements OnInit {
       throw new Error('Разные пароли')
     }
 
-    this.authService.signUp('42', data).subscribe(response => {
-      console.log('resopone', response)
+    this.authService.signUp(data).subscribe(response => {
+      localStorage.setItem('fb-id', response.name)
       this.authService.success()
       this.form.reset()
     }, () => {

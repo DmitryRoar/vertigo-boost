@@ -3,7 +3,6 @@ import {IComputerInfo, ISubscriptionItem} from '../interfaces'
 import {HttpClient} from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {environment} from '../../../environments/environment'
-import {map} from 'rxjs/operators'
 
 @Injectable()
 export class UserService {
@@ -25,10 +24,10 @@ export class UserService {
   }
 
   sendImageUrl(id, imageUrl): Observable<any> {
-    return this.http.post(`${environment.fbDbUrl}/users/user/${id}.json`, imageUrl)
+    return this.http.post(`${environment.fbDbUrl}/users/${id}.json`, imageUrl)
   }
 
   takeImageUrl(id): Observable<any> {
-    return this.http.get(`${environment.fbDbUrl}/users/user/${id}.json`)
+    return this.http.get(`${environment.fbDbUrl}/users/${id}.json`)
   }
 }
