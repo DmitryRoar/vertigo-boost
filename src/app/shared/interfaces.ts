@@ -68,3 +68,26 @@ export interface IConfirmEmail {
   requestType: string
   idToken: string
 }
+
+export interface IResetPassword {
+  requestType: string
+  email: string
+}
+
+export interface IParamsForObb {
+  oobCode: string
+}
+
+export interface IPasswordHash {
+  passwordHash: string
+}
+
+export interface ISendOobCode {
+  email: string
+}
+
+export interface ISignUp {
+  idToken: string
+  email: string
+  expiresIn: string
+}

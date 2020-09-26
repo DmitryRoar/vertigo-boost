@@ -8,11 +8,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms'
   styleUrls: ['./reset-password-page.component.scss']
 })
 export class ResetPasswordPageComponent implements OnInit {
-
   form: FormGroup
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -21,8 +19,13 @@ export class ResetPasswordPageComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this.authService.success()
-    this.form.reset()
+    this.auth.resetPassword({requestType: 'PASSWORD_RESET', email: this.form.value.email}).subscribe(() => {
+      console.log('reset password')
+      this.auth.success()
+    }, () => {
+      
+    }, () => {
+      this.form.reset()
+    })
   }
 }

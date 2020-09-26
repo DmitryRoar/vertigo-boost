@@ -97,6 +97,7 @@ footer {
   position: relative;
   width: 30px;
   height: 20px;
+  cursor: pointer;
 }
 
 .header-menu__span {
@@ -155,6 +156,10 @@ footer {
     display: none;
   }
 
+  .selector-open {
+    display: none !important;
+  }
+
   .profile-link {
     display: flex;
     justify-content: center;
@@ -207,18 +212,10 @@ header.open {
   font-family: 'SFlight', sans-serif;
 }
 
-//.overlay {
-//  position: fixed;
-//  top: 0;
-//  left: 0;
-//  right: 0;
-//  bottom: 0;
-//}
-
 .section-wrapper {
   color: #E5E5E5;
   position: absolute;
-  top: 61px;
+  top: 35px;
   left: 590px;
   right: 0;
   display: none;
@@ -232,7 +229,7 @@ header.open {
   position: relative;
   z-index: 1;
   text-align: center;
-  border-radius: 16px;
+  border-radius: 0 0 16px 16px;
 
 
 

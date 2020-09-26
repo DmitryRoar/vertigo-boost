@@ -9,7 +9,7 @@
       <div
         class="temp"
         [class.marginTrans]="item.marginTrans"
-        *ngFor="let item of userService.cardItems"
+        *ngFor="let item of cardItems"
       >
         <span class="upper-card__title">{{item.version}} version</span>
 
@@ -43,13 +43,11 @@
 
           <ng-template #notActivated>
             <ul class="card__ul">
-
               <span class="card__span">Vertigo Boost Panel</span>
-
+              
               <li class="card__list card__input card__time">
                 Not Activated
               </li>
-
               <li class="card__list card__arrow">
                 <button (click)="changePrice(item.id)">
                   <img src="../../../assets/img/arrowDown.svg" alt="">
@@ -62,7 +60,7 @@
                 <button type="button" class="card__input card__input-green">Activate code</button>
               </li>
               <li class="card__list card__input">
-                Empty
+                No activated PC yet
               </li>
               <li class="card__list">
                 <button type="button" class="card__input card__input-red">Reset Device</button>
@@ -83,7 +81,7 @@
       <div
         class="computer-container"
         [class.computer__active]="computer.active"
-        *ngFor="let computer of userService.computerInfo; let idx = index"
+        *ngFor="let computer of computerInfo; let idx = index"
         (click)="computerClick(computer.id)"
       >
         <img src="../../../assets/img/pc.svg" alt="pc">

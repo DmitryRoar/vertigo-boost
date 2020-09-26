@@ -56,6 +56,10 @@
     background: none;
     border: 0;
     color: red;
+    width: 100%;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:disabled {
       color: #000;
@@ -72,6 +76,7 @@
     border-radius: 5px;
     padding: 4px 42px;
     font-size: 17px;
+    cursor: pointer;
   }
 }
 
@@ -80,12 +85,15 @@
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  cursor: pointer;
 
-  a {
+  input {
     white-space: nowrap;
     color: #000;
-    display: flex;
     cursor: pointer;
+    background: none;
+    border: 0;
   }
 
   img {
@@ -146,7 +154,8 @@
 @media (max-width: 1030px) {
   .settings-wrapper {
     width: 100vw;
-    height: calc(100vh + 42px);
+    height: calc(100vh + 42px) !important;
+
   }
 
   .settings__title {
@@ -197,6 +206,14 @@
 
 @media (max-height: 855px) {
   .settings-wrapper {
-    height: calc(100vh + 325px);
+    height: $content-height;
   }
+}
+
+.error-text {
+  color: red !important;
+}
+
+.wait {
+  cursor: pointer;
 }

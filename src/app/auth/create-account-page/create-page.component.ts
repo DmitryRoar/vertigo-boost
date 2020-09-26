@@ -9,15 +9,14 @@ import {IAuthData} from '../../shared/interfaces'
   styleUrls: ['./create-page.component.scss']
 })
 export class CreateAccountPageComponent implements OnInit {
-
   form: FormGroup
 
   message = ''
   formDisabled = false
 
   constructor(
-    private authService: AuthService) {
-  }
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -37,22 +36,22 @@ export class CreateAccountPageComponent implements OnInit {
 
     if (!(password.trim() === repeatPassword.trim())) {
       this.message = 'Different password. Try again'
+      this.formDisabled = false
       this.form.patchValue({
         password: '',
         repeatPassword: ''
       })
-      throw new Error('Разные пароли')
+      throw new Error('Different password')
     }
 
-    this.authService.signUp(data).subscribe(response => {
-      localStorage.setItem('fb-id', response.name)
-      this.authService.success()
+    this.auth.signUp(data).subscribe(() => {
+      this.formDisabled = true
+      this.auth.success()
       this.form.reset()
     }, () => {
       this.formDisabled = false
       this.message = 'Something went wrong. Try again'
       this.form.reset()
     })
-
   }
 }

@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core'
-import {FbAuthResponse, IAuthData, INavbar, ISwalBtn} from '../interfaces'
-import {ActivatedRoute, Router} from '@angular/router'
+import {Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
-import {environment} from '../../../environments/environment'
 import {Observable} from 'rxjs'
-import {map, switchMap, tap} from 'rxjs/operators'
+import {switchMap, tap} from 'rxjs/operators'
+
+import {environment} from '../../../environments/environment'
+import {FbAuthResponse, IAuthData, IConfirmEmail, INavbar, IResetPassword, ISendOobCode, ISignUp, ISwalBtn} from '../interfaces'
+
 
 declare var Swal: ISwalBtn
 
@@ -23,10 +25,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private http: HttpClient
-  ) {
-  }
+  ) {}
 
   get token(): string {
     const expDate = new Date(localStorage.getItem('fb-token-exp'))
@@ -52,17 +52,22 @@ export class AuthService {
       )
   }
 
-  signUp(data: IAuthData): Observable<any> {
-    return this.http.post<any>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
+  signUp(data: IAuthData): Observable<ISignUp> {
+    return this.http.post<ISignUp>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
       .pipe(
-        map(response => ({
-          ...response, imageUrl: ''
-        })),
-        switchMap(data => {
-          return this.http.post<any>(`${environment.fbDbUrl}/users.json`, data)
+        switchMap((response: ISignUp): Observable<any> => {
+          return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
         })
       )
+  } 
+
+  sendOobCode(data: IConfirmEmail): Observable<ISendOobCode> {
+    return this.http.post<ISendOobCode>(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${environment.apiKey}`, data)
   }
+
+  resetPassword(data: IResetPassword): Observable<ISendOobCode> {
+    return this.http.post<ISendOobCode>(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${environment.apiKey}`, data)
+  } 
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {
@@ -74,9 +79,9 @@ export class AuthService {
     }
   }
 
-  async success() {
+  async success(msg = 'Check your Email') {
     try {
-      await Swal.fire('Check your Email', '', 'success')
+      await Swal.fire(msg, '', 'success')
       this.router.navigate(['/profile', 'subscriptions'])
     } catch (e) {
       await Swal.fire('Something went wrong', '', 'error')
@@ -89,8 +94,8 @@ export class AuthService {
 
     this.profileLinks = [
       {title: 'Subscriptions', link: '/profile/subscriptions'},
-      {title: 'Settings', link: `/profile/settings/${'42'}`},
-      {title: 'History', link: '/profile/history'},
+      {title: 'Settings', link: `/profile/settings`},
+      {title: 'FAQ', link: '/profile/history'},
       {title: 'Logout', link: '/', changeLink: true}
     ]
 

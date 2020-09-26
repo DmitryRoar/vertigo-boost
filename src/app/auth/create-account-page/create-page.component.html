@@ -1,5 +1,7 @@
 <form class="form-wrapper" (ngSubmit)="onSubmit()" [formGroup]="form">
-  <span class="auth-header">Create account</span>
+  <div class="auth__header">
+    <span class="auth__title">Create account</span>
+  </div>
   <div class="validation-message" *ngIf="message">
     {{message}}
   </div>
@@ -43,6 +45,5 @@
 <div class="auth-redirect">
   <a [routerLink]="['/auth']">Sign In</a>
   <span> / </span>
-<!--  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>-->
-  <a class="dont-working">Reset password?</a>
+  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>
 </div>

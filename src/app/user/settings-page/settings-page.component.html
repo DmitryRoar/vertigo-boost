@@ -1,4 +1,5 @@
-<div class="settings-wrapper" *ngIf="photoUrl; else loading">
+<div *ngIf="emailInput; else loading">
+<div class="settings-wrapper">
   <div class="settings-content">
 
     <div class="settings__title">
@@ -23,7 +24,7 @@
             <p class="settings__social">Email</p>
 
             <div class="settings__account">
-              <input type='text' [value]="emailSearch" [disabled]="!editMail">
+              <input type='text' [value]="emailInput" [disabled]="!editMail">
               <button *ngIf="editBtn" (click)="editMail = true">
                 <img src="../../../assets/img/pen.svg" alt="pen">
               </button>
@@ -57,6 +58,7 @@
 
           <app-user-change-data
             [prevState]="editBtn"
+            [newPasswordHash]="passwordHash"
             (newState)="backEditBtn($event)"
           ></app-user-change-data>
 
@@ -70,20 +72,28 @@
 
   <div
     class="settings-confirm"
-    *ngIf="!showConfirmEmail"
+    *ngIf="!emailVerification"
+    (click)="sendOobTemp()"
   >
-    <a>
-      Confirmation link has been sent to your email!
+    <input 
+      type="button" 
+      [disabled]="delayAfterConfirmEmail"
+      value="Confirmation link has been sent to your email!"
+    >
+    <!-- <a  -->
+      <!-- [ngClass]="{ -->
+        <!-- 'wait': delayAfterConfirmEmail, -->
+        <!-- 'error-text': sendButtonError -->
+      <!-- }" -->
+    <!-- > -->
+      <!-- Confirmation link has been sent to your email!  -->
       <img src="../../../assets/img/successStick.svg" alt="confirm email">
-    </a>
+    <!-- </a> -->
   </div>
 
+</div>
 </div>
 
 <ng-template #loading>
   <p>loading...</p>
-</ng-template>
-<!--
-  при нажатии на картинку открывается модалка с инпутом куда вводится url картинки.
-  этот url отправляется на realtimeDB после чего мы его изменяем
--->
+</ng-template> 

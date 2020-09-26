@@ -2,7 +2,14 @@
 <div class="auth-wrapper__form">
 
 <form class="form-wrapper" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <span class="auth-header">Sign In</span>
+  <div class="auth__header">
+    <span class="auth__title">Sign In</span>
+
+    <div class="error-text" *ngIf="errorMsg">
+      <p>{{errorMsg}}</p>
+    </div>
+  </div>
+
   <input
     type="email"
     placeholder="Email"
@@ -28,8 +35,8 @@
 <div class="auth-redirect">
   <a [routerLink]="['/auth', 'create-account']">Create Account</a>
   <span> / </span>
-<!--  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>-->
-  <a class="dont-working">Reset password?</a>
+  <a [routerLink]="['/auth', 'reset-password']">Reset password?</a>
+  <!-- <a class="dont-working">Reset password?</a> -->
 </div>
 
 </div>

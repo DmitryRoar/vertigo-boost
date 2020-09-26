@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {UserService} from '../../shared/services/user.service'
+import {IComputerInfo, ISubscriptionItem} from 'src/app/shared/interfaces'
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -7,22 +7,28 @@ import {UserService} from '../../shared/services/user.service'
   styleUrls: ['./subscriptions-page.component.scss']
 })
 export class SubscriptionsPageComponent implements OnInit {
-
   date: Date = new Date()
 
-  constructor(
-    public userService: UserService
-  ) {
-  }
+  cardItems: ISubscriptionItem[] = [
+    {id: '1', open: false, version: 'Lite', code: '6SBVGMS9TXMK2RUP', pc: 'ALFRED-PC', activated: true},
+    {id: '2', open: false, version: 'Standard', code: '6SBVGMS9TXMK2RUP', pc: 'ALFRED-PC', marginTrans: true, activated: true},
+    {id: '3', open: false, version: 'Deluxe', code: 'CODE HERE', pc: 'ROAR-PC', activated: false}
+  ]
 
-  ngOnInit(): void {
-  }
+  computerInfo: IComputerInfo[] = [
+    {id: '1', name: 'Computer', active: true},
+    {id: '2', name: 'Computer', active: false}
+  ]
+  
+  constructor() {}
 
-  changePrice(id) {
-    this.userService.cardItems.filter(el => el.id === id ? el.open = true : null)
+  ngOnInit(): void {}
+
+  changePrice(id: string) {
+    this.cardItems.filter(el => el.id === id ? el.open = true : null)
   }
 
   computerClick(id: string) {
-    this.userService.computerInfo.filter(comp => comp.id === id ? comp.active = !comp.active : null)
+    this.computerInfo.filter(comp => comp.id === id ? comp.active = !comp.active : null)
   }
 }
