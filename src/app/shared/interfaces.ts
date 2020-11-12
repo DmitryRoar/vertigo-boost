@@ -28,7 +28,8 @@ interface ISwalInputProps {
 }
 
 export interface ISwalInput {
-  fire: (options: ISwalInputProps) => any
+  fire: (options: ISwalInputProps) => any,
+  close: () => void
 }
 
 export interface IAuthData {
@@ -90,4 +91,12 @@ export interface ISignUp {
   idToken: string
   email: string
   expiresIn: string
+}
+
+export interface IChangeData {
+  idToken: string,
+  photoUrl: string,
+  displayName: string | null,
+  deleteAttribute: string | null,
+  returnSecureToken: boolean
 }

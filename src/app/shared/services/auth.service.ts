@@ -5,7 +5,16 @@ import {Observable} from 'rxjs'
 import {switchMap, tap} from 'rxjs/operators'
 
 import {environment} from '../../../environments/environment'
-import {FbAuthResponse, IAuthData, IConfirmEmail, INavbar, IResetPassword, ISendOobCode, ISignUp, ISwalBtn} from '../interfaces'
+import {
+  FbAuthResponse,
+  IAuthData,
+  IConfirmEmail,
+  INavbar,
+  IResetPassword,
+  ISendOobCode,
+  ISignUp,
+  ISwalBtn
+} from '../interfaces'
 
 
 declare var Swal: ISwalBtn
@@ -26,7 +35,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   get token(): string {
     const expDate = new Date(localStorage.getItem('fb-token-exp'))
@@ -59,7 +69,7 @@ export class AuthService {
           return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
         })
       )
-  } 
+  }
 
   sendOobCode(data: IConfirmEmail): Observable<ISendOobCode> {
     return this.http.post<ISendOobCode>(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${environment.apiKey}`, data)
@@ -67,7 +77,7 @@ export class AuthService {
 
   resetPassword(data: IResetPassword): Observable<ISendOobCode> {
     return this.http.post<ISendOobCode>(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${environment.apiKey}`, data)
-  } 
+  }
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {

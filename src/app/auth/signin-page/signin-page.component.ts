@@ -10,7 +10,6 @@ import {ActivatedRoute, Params} from '@angular/router'
   styleUrls: ['./signin-page.component.scss']
 })
 export class SignInPageComponent implements OnInit {
-
   form: FormGroup
 
   formDisabled = false
@@ -21,7 +20,8 @@ export class SignInPageComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,26 +29,29 @@ export class SignInPageComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(6)])
     })
     this.route.queryParams.subscribe((params: Params) => {
-      if(params['signInAgain']) {
+      if (params['signInAgain']) {
         this.errorMsg = 'Something went wrong! Try again'
       }
     })
   }
 
   onSubmit() {
+    this.formDisabled = true
     const {email, password} = this.form.value
     const data: IAuthData = {
-    email, password,
-    returnSecureToken: true
+      email, password,
+      returnSecureToken: true
     }
     this.auth.login(data).subscribe(() => {
       this.auth.success('Welcome')
-      this.formDisabled = true
-      this.form.reset()
     }, () => {
       this.error = true
       this.formDisabled = false
       this.form.reset()
+    }, () => {
+      this.form.reset()
+      this.error = false
+      this.formDisabled = false
     })
   }
 }

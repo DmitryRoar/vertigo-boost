@@ -1,16 +1,23 @@
-<div *ngIf="emailInput; else loading">
+<div *ngIf="emailInput && photoUrl; else loading">
 <div class="settings-wrapper">
   <div class="settings-content">
 
     <div class="settings__title">
       Settings
+
+      <div class="settings__errorImg" *ngIf="errorImageUrl">
+        URL should contain: http(s)://url
+      </div>
     </div>
+
+
+
     <div class="settings-data">
 
       <div class="settings__logo">
         <div class="settings__branch">
           <img [src]="photoUrl" alt="avatar">
-          <button>Remove</button>
+<!--          <button>Remove</button>-->
 
           <button  class="settings__branch-hover" type="button">
             <button type="button" class="branch-hover__btn" (click)="openInputForSearchUrl()">
@@ -71,24 +78,17 @@
   </div>
 
   <div
+    [class.error]="sendButtonError"
     class="settings-confirm"
     *ngIf="!emailVerification"
-    (click)="sendOobTemp()"
+    (click)="sendOobOnMail()"
   >
-    <input 
-      type="button" 
-      [disabled]="delayAfterConfirmEmail"
-      value="Confirmation link has been sent to your email!"
+    <input
+      type="button"
+      [disabled]="delayAfterConfirmEmail || sendButtonError"
+      [value]="confirmationLinkText"
     >
-    <!-- <a  -->
-      <!-- [ngClass]="{ -->
-        <!-- 'wait': delayAfterConfirmEmail, -->
-        <!-- 'error-text': sendButtonError -->
-      <!-- }" -->
-    <!-- > -->
-      <!-- Confirmation link has been sent to your email!  -->
-      <img src="../../../assets/img/successStick.svg" alt="confirm email">
-    <!-- </a> -->
+    <img src="../../../assets/img/successStick.svg" alt="confirm email">
   </div>
 
 </div>
@@ -96,4 +96,4 @@
 
 <ng-template #loading>
   <p>loading...</p>
-</ng-template> 
+</ng-template>

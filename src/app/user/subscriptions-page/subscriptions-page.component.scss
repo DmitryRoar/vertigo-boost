@@ -1,4 +1,4 @@
-@import "src/assets/myStyles/variables";
+@import 'src/assets/myStyles/variables';
 
 .subscriptions-wrapper {
   text-align: center;
@@ -8,8 +8,6 @@
   display: flex;
   margin-bottom: 61px;
 }
-
-
 
 .card__ul {
   display: flex;
@@ -49,6 +47,7 @@
 }
 
 .temp {
+  max-width: 305px;
   margin-top: 27px;
 }
 

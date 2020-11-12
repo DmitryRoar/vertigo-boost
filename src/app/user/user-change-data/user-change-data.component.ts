@@ -11,7 +11,6 @@ import {Router} from '@angular/router'
   styleUrls: ['./user-change-data.component.scss']
 })
 export class UserChangeDataComponent implements OnInit {
-
   @Input() prevState: boolean
   @Input() newPasswordHash: IPasswordHash
   @Output() newState = new EventEmitter()
@@ -56,12 +55,12 @@ export class UserChangeDataComponent implements OnInit {
         this.router.navigate(['/auth'])
 
         this.newState.emit(this.prevState = false)
-        this.form.reset()        
+        this.form.reset()
       } else {
         throw new Error('hello')
       }
     }, (error) => {
-      const errMsg = error.error.error.message
+      const {message: errMsg} = error.error.error
       if(errMsg === 'CREDENTIAL_TOO_OLD_LOGIN_AGAIN') {
         this.auth.logout()
         this.router.navigate(['/auth'], {

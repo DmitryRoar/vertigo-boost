@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core'
-import {IParamsForObb, IPasswordHash, ISwalInput} from '../../shared/interfaces'
+import {IChangeData, IConfirmEmail, IParamsForObb, IPasswordHash, ISwalInput} from '../../shared/interfaces'
 import {UserService} from '../shared/services/user.service'
 import {ActivatedRoute, Router} from '@angular/router'
 import { AuthService } from 'src/app/shared/services/auth.service'
@@ -15,6 +15,8 @@ declare var Swal: ISwalInput
 export class SettingsPageComponent implements OnInit {
   emailInput = ''
 
+  confirmationLinkText = 'Confirmation link has been sent to your email!'
+
   photoUrl = ''
   defaultPhotoUrl = 'https://avatars1.githubusercontent.com/u/31390354?s=460&u=082a54d4c1305116b9b434f109d7965c26007643&v=4'
 
@@ -26,6 +28,8 @@ export class SettingsPageComponent implements OnInit {
 
   delayAfterConfirmEmail = false
   sendButtonError = false
+
+  errorImageUrl = false
 
   passwordHash: IPasswordHash
 
@@ -39,7 +43,7 @@ export class SettingsPageComponent implements OnInit {
   ngOnInit(): void {
     this.checkOobCode()
     this.checkData()
-    
+
     if (!this.photoUrl) {
       this.photoUrl = this.defaultPhotoUrl
     }
@@ -53,17 +57,26 @@ export class SettingsPageComponent implements OnInit {
     })
   }
 
-  sendOobTemp() {
-    this.auth.sendOobCode({idToken: localStorage.getItem('fb-token'), requestType: 'VERIFY_EMAIL'}).subscribe(() => {
+  sendOobOnMail() {
+    const data: IConfirmEmail = {
+      idToken: localStorage.getItem('fb-token'),
+      requestType: 'VERIFY_EMAIL'
+    }
+    this.auth.sendOobCode(data).subscribe(() => {
       this.delayAfterConfirmEmail = true
     }, () => {
-      this.delayAfterConfirmEmail = false 
+      this.delayAfterConfirmEmail = false
       this.sendButtonError = true
+      this.confirmationLinkText = 'Something went wrong. Try later!'
+    }, () => {
+      this.delayAfterConfirmEmail = false
     })
   }
 
   async openInputForSearchUrl() {
     try {
+      // const reg = /http(s)?:\/\/\w+\.\w+/gi
+      const reg = /http(s)?:\/\/.+/gi
       const SwalInput = await Swal.fire({
         title: 'Enter Image URL',
         input: 'text',
@@ -71,6 +84,25 @@ export class SettingsPageComponent implements OnInit {
           autocapitalize: 'off'
         }
       })
+      const photoUrl = SwalInput.value
+
+      if (reg.test(photoUrl)) {
+        const data: IChangeData = {
+          idToken: localStorage.getItem('fb-token'),
+          photoUrl,
+          displayName: null,
+          deleteAttribute: null,
+          returnSecureToken: true
+        }
+        this.user.updateData(data).subscribe((newData) => {
+          this.photoUrl = newData.photoUrl
+        })
+
+        this.errorImageUrl = false
+      } else {
+        Swal.close()
+        this.errorImageUrl = true
+      }
       if (!SwalInput.value) return
     } catch (e) {
       console.log(e)
@@ -80,13 +112,14 @@ export class SettingsPageComponent implements OnInit {
   private checkData() {
     const fbToken = {
       idToken: localStorage.getItem('fb-token')
-    } 
+    }
     this.user.checkUserData(fbToken).subscribe(data => {
       this.passwordHash = data.users[0].passwordHash
       this.emailVerification = data.users[0].emailVerified
       this.emailInput = data.users[0].email
+      this.photoUrl = data.users[0].photoUrl
     }, (error) => {
-      const message = error.error.error.message
+      const {message} = error.error.error
       if (message === 'TOKEN_EXPIRED') {
         this.router.navigate(['/auth'], {
           queryParams: {

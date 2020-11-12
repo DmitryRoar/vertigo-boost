@@ -8,11 +8,9 @@ import {IConfirmEmail} from '../../../shared/interfaces'
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  updateData(data):Observable<any> {
+  updateData(data): Observable<any> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${environment.apiKey}`, data)
   }
-
-
 
   checkUserData(data): Observable<any> {
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.apiKey}`, data)
