@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser'
-import {NgModule} from '@angular/core'
+import {NgModule, Provider} from '@angular/core'
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {AppRoutingModule} from './app-routing.module'
@@ -14,7 +14,15 @@ import {ResetPasswordPageComponent} from './auth/reset-password-page/reset-passw
 import {ErrorPageComponent} from './shared/components/error-page/error-page.component'
 import {UserLayoutComponent} from './shared/components/user-layout/user-layout.component'
 import {ProductsPageComponent} from './products-page/products-page.component'
-import {LoadingComponent} from './shared/components/loading/loading.component'
+import {HTTP_INTERCEPTORS} from '@angular/common/http'
+import {AuthInterceptor} from './shared/services/auth.interceptor'
+import {ConfirmActionComponent} from './shared/components/confirm-action/confirm-action.component'
+
+const INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptor,
+  multi: true
+}
 
 @NgModule({
   declarations: [
@@ -27,7 +35,7 @@ import {LoadingComponent} from './shared/components/loading/loading.component'
     ErrorPageComponent,
     UserLayoutComponent,
     ProductsPageComponent,
-    LoadingComponent
+    ConfirmActionComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,7 @@ import {LoadingComponent} from './shared/components/loading/loading.component'
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule {

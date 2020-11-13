@@ -2,7 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core'
 import {IChangeData, IConfirmEmail, IParamsForObb, IPasswordHash, ISwalInput} from '../../shared/interfaces'
 import {UserService} from '../shared/services/user.service'
 import {ActivatedRoute, Router} from '@angular/router'
-import { AuthService } from 'src/app/shared/services/auth.service'
+import {AuthService} from 'src/app/shared/services/auth.service'
 
 declare var Swal: ISwalInput
 
@@ -52,31 +52,30 @@ export class SettingsPageComponent implements OnInit {
   private checkOobCode() {
     this.route.queryParams.subscribe((params: IParamsForObb) => {
       if (params.oobCode) {
-        this.user.updateData({ oobCode: params.oobCode }).subscribe()
+        this.user.updateData({oobCode: params.oobCode}).subscribe()
       }
     })
   }
 
   sendOobOnMail() {
+    this.delayAfterConfirmEmail = true
+
     const data: IConfirmEmail = {
       idToken: localStorage.getItem('fb-token'),
       requestType: 'VERIFY_EMAIL'
     }
     this.auth.sendOobCode(data).subscribe(() => {
-      this.delayAfterConfirmEmail = true
+      this.confirmationLinkText = 'A confirmation link has been sent to your email'
     }, () => {
       this.delayAfterConfirmEmail = false
       this.sendButtonError = true
       this.confirmationLinkText = 'Something went wrong. Try later!'
-    }, () => {
-      this.delayAfterConfirmEmail = false
     })
   }
 
   async openInputForSearchUrl() {
     try {
-      // const reg = /http(s)?:\/\/\w+\.\w+/gi
-      const reg = /http(s)?:\/\/.+/gi
+      const reg = /(https?:\/\/.*\.(?:png|jpg|jpeg|webmp))/gim
       const SwalInput = await Swal.fire({
         title: 'Enter Image URL',
         input: 'text',
@@ -103,7 +102,6 @@ export class SettingsPageComponent implements OnInit {
         Swal.close()
         this.errorImageUrl = true
       }
-      if (!SwalInput.value) return
     } catch (e) {
       console.log(e)
     }
@@ -117,7 +115,10 @@ export class SettingsPageComponent implements OnInit {
       this.passwordHash = data.users[0].passwordHash
       this.emailVerification = data.users[0].emailVerified
       this.emailInput = data.users[0].email
-      this.photoUrl = data.users[0].photoUrl
+
+      if (data.users[0].photoUrl) {
+        this.photoUrl = data.users[0].photoUrl
+      }
     }, (error) => {
       const {message} = error.error.error
       if (message === 'TOKEN_EXPIRED') {

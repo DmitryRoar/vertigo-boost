@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsPageComponent implements OnInit {
 
-  imgSrc = '../../assets/img/triangle.svg'
+  imgSrc = ''
 
   constructor() { }
 

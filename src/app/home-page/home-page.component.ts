@@ -7,7 +7,6 @@ import {IPricing} from '../shared/interfaces'
   styleUrls: ['./home-page.component.scss']
 })
 export class HomePageComponent implements OnInit {
-
   public pricingList: IPricing[] = [
     {
       title: 'Lite', price: 5, privileges: [
@@ -28,6 +27,7 @@ export class HomePageComponent implements OnInit {
       ], btnTitle: 'Contact us', active: true
     }
   ]
+
   constructor() {
   }
 

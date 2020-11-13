@@ -5,10 +5,6 @@ export interface INavbar {
   sectionLinks?: any
 }
 
-export interface IProfileLink extends INavbar {
-  sectionLinks: INavbar[]
-}
-
 export interface IPricing {
   title: string
   price: number

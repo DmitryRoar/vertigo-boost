@@ -1,4 +1,4 @@
-<div *ngIf="emailInput && photoUrl; else loading">
+<div *ngIf="emailInput && photoUrl; else loader">
 <div class="settings-wrapper">
   <div class="settings-content">
 
@@ -6,11 +6,10 @@
       Settings
 
       <div class="settings__errorImg" *ngIf="errorImageUrl">
-        URL should contain: http(s)://url
+        URL should contain:
+        <p>http(s)://url.<strong>png|jpg|jpeg|webmp</strong></p>
       </div>
     </div>
-
-
 
     <div class="settings-data">
 
@@ -42,9 +41,9 @@
             <p class="settings__social">Discord</p>
 
             <div class="settings__account">
-              <input type="text" value="xALFREDx#4666" [disabled]="!editDiscord">
+              <input type="text" value="empty" [disabled]="!editDiscord">
               <button *ngIf="editBtn" (click)="editDiscord = true">
-                <img src="../../../assets/img/pen.svg" alt="pen">
+<!--                <img src="../../../assets/img/pen.svg" alt="pen">-->
               </button>
             </div>
           </div>
@@ -78,7 +77,10 @@
   </div>
 
   <div
-    [class.error]="sendButtonError"
+    [ngClass]="{
+      'wait': delayAfterConfirmEmail,
+      'error': sendButtonError
+    }"
     class="settings-confirm"
     *ngIf="!emailVerification"
     (click)="sendOobOnMail()"
@@ -94,6 +96,6 @@
 </div>
 </div>
 
-<ng-template #loading>
-  <p>loading...</p>
+<ng-template #loader>
+  <app-loader></app-loader>
 </ng-template>

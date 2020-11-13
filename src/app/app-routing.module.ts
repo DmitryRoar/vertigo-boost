@@ -11,7 +11,8 @@ import {MainLayoutComponent} from './shared/components/main-layout/main-layout.c
 import {CreateAccountPageComponent} from './auth/create-account-page/create-page.component'
 import {ErrorPageComponent} from './shared/components/error-page/error-page.component'
 import {ProductsPageComponent} from './products-page/products-page.component'
-import { ResetPasswordPageComponent } from './auth/reset-password-page/reset-password-page.component'
+import {ResetPasswordPageComponent} from './auth/reset-password-page/reset-password-page.component'
+import {ConfirmActionComponent} from './shared/components/confirm-action/confirm-action.component'
 
 const routes: Routes = [
   {
@@ -33,11 +34,16 @@ const routes: Routes = [
               {path: 'reset-password', component: ResetPasswordPageComponent}
             ]
           },
-          {path: 'profile', loadChildren: () => import('./user/user.module').then(m => m.UserModule), canActivate: [AuthGuard]}
+          {
+            path: 'profile',
+            loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+            canActivate: [AuthGuard]
+          }
         ]
       }
     ]
   },
+  {path: 'action', component: ConfirmActionComponent},
   {path: 'error', component: ErrorPageComponent},
   {path: '**', redirectTo: 'error'}
 ]

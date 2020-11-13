@@ -35,8 +35,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient
-  ) {
-  }
+  ) {}
 
   get token(): string {
     const expDate = new Date(localStorage.getItem('fb-token-exp'))
@@ -81,7 +80,7 @@ export class AuthService {
 
   private setToken(response: FbAuthResponse | null) {
     if (response) {
-      const expDate = new Date(Date.now() + +response.expiresIn * 3600)
+      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000)
       localStorage.setItem('fb-token', response.idToken)
       localStorage.setItem('fb-token-exp', expDate.toString())
     } else {
