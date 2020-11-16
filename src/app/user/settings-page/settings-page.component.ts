@@ -114,6 +114,7 @@ export class SettingsPageComponent implements OnInit {
     this.user.checkUserData(fbToken).subscribe(data => {
       this.passwordHash = data.users[0].passwordHash
       this.emailVerification = data.users[0].emailVerified
+
       this.emailInput = data.users[0].email
 
       if (data.users[0].photoUrl) {

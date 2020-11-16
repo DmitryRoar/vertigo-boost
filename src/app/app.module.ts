@@ -16,7 +16,6 @@ import {UserLayoutComponent} from './shared/components/user-layout/user-layout.c
 import {ProductsPageComponent} from './products-page/products-page.component'
 import {HTTP_INTERCEPTORS} from '@angular/common/http'
 import {AuthInterceptor} from './shared/services/auth.interceptor'
-import {ConfirmActionComponent} from './shared/components/confirm-action/confirm-action.component'
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -34,8 +33,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ResetPasswordPageComponent,
     ErrorPageComponent,
     UserLayoutComponent,
-    ProductsPageComponent,
-    ConfirmActionComponent
+    ProductsPageComponent
   ],
   imports: [
     BrowserModule,

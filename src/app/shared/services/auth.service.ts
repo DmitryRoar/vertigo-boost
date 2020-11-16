@@ -63,11 +63,11 @@ export class AuthService {
 
   signUp(data: IAuthData): Observable<ISignUp> {
     return this.http.post<ISignUp>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
-      .pipe(
-        switchMap((response: ISignUp): Observable<any> => {
-          return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
-        })
-      )
+      // .pipe(
+      //   switchMap((response: ISignUp): Observable<any> => {
+      //     return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
+      //   })
+      // )
   }
 
   sendOobCode(data: IConfirmEmail): Observable<ISendOobCode> {

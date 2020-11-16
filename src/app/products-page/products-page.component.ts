@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsPageComponent implements OnInit {
 
-  imgSrc = ''
-
   constructor() { }
 
   ngOnInit(): void {
