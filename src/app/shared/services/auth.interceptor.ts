@@ -10,7 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.auth.isAuthenticated) {
@@ -38,6 +39,21 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['/auth', 'reset-password'], {
               queryParams: {
                 tryAgain: true
+              }
+            })
+          }
+          if (message === 'CREDENTIAL_TOO_OLD_LOGIN_AGAIN') {
+            this.router.navigate(['/auth', 'sign-in'], {
+              queryParams: {
+                loginAgain: true
+              }
+            })
+            this.auth.logout()
+          }
+          if (message === 'TOKEN_EXPIRED') {
+            this.router.navigate(['/auth'], {
+              queryParams: {
+                tokenExpired: true
               }
             })
           }

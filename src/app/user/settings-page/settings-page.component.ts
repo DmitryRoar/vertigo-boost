@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core'
-import {IChangeData, IConfirmEmail, IParamsForObb, IPasswordHash, ISwalInput} from '../../shared/interfaces'
+import {IChangeData, IConfirmEmail, ISwalInput, IUpdateEmail} from '../../shared/interfaces'
 import {UserService} from '../shared/services/user.service'
 import {ActivatedRoute, Router} from '@angular/router'
 import {AuthService} from 'src/app/shared/services/auth.service'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
 
 declare var Swal: ISwalInput
 
@@ -13,6 +14,8 @@ declare var Swal: ISwalInput
   encapsulation: ViewEncapsulation.None
 })
 export class SettingsPageComponent implements OnInit {
+  formEmail: FormGroup
+
   emailInput = ''
 
   confirmationLinkText = 'Confirmation link has been sent to your email!'
@@ -31,31 +34,17 @@ export class SettingsPageComponent implements OnInit {
 
   errorImageUrl = false
 
-  passwordHash: IPasswordHash
-
   constructor(
     private user: UserService,
     private auth: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    // this.checkOobCode()
-    this.checkData()
-
-    if (!this.photoUrl) {
-      this.photoUrl = this.defaultPhotoUrl
-    }
+  ) {
   }
 
-  // private checkOobCode() {
-  //   this.route.queryParams.subscribe((params: IParamsForObb) => {
-  //     if (params.oobCode) {
-  //       this.user.updateData({oobCode: params.oobCode}).subscribe()
-  //     }
-  //   })
-  // }
+  ngOnInit(): void {
+    this.checkData()
+  }
 
   sendOobOnMail() {
     this.delayAfterConfirmEmail = true
@@ -112,27 +101,37 @@ export class SettingsPageComponent implements OnInit {
       idToken: localStorage.getItem('fb-token')
     }
     this.user.checkUserData(fbToken).subscribe(data => {
-      this.passwordHash = data.users[0].passwordHash
-      this.emailVerification = data.users[0].emailVerified
+        this.emailVerification = data.users[0].emailVerified
+        this.emailInput = data.users[0].email
 
-      this.emailInput = data.users[0].email
-
-      if (data.users[0].photoUrl) {
-        this.photoUrl = data.users[0].photoUrl
-      }
-    }, (error) => {
-      const {message} = error.error.error
-      if (message === 'TOKEN_EXPIRED') {
-        this.router.navigate(['/auth'], {
-          queryParams: {
-            tokenExpired: true
-          }
+        this.formEmail = new FormGroup({
+          newEmail: new FormControl(this.emailInput, [Validators.required, Validators.email])
         })
+
+        if (data.users[0].photoUrl) {
+          this.photoUrl = data.users[0].photoUrl
+        } else {
+          this.photoUrl = this.defaultPhotoUrl
+        }
       }
-    })
+    )
   }
 
   backEditBtn(newState) {
     this.editBtn = newState
+  }
+
+  onSubmitEmail() {
+    if (this.formEmail.invalid) return
+
+    const data: IUpdateEmail = {
+      idToken: localStorage.getItem('fb-token'),
+      email: this.formEmail.value.newEmail,
+      returnSecureToken: true
+    }
+    this.user.updateData(data).subscribe(() => {
+      this.user.success()
+      this.router.navigate(['/auth', 'sign-in'])
+    })
   }
 }

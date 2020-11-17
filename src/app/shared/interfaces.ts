@@ -61,6 +61,12 @@ export interface IUpdatePassword {
   returnSecureToken: boolean
 }
 
+export interface IUpdateEmail {
+  idToken: string
+  email: string
+  returnSecureToken: boolean
+}
+
 export interface IConfirmEmail {
   requestType: string
   idToken: string

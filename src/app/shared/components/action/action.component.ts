@@ -30,7 +30,7 @@ export class ActionComponent implements OnInit, OnDestroy {
     })
 
     this.route.queryParams.subscribe((params: IParamsForObb) => {
-      if (params.mode === 'verifyEmail') {
+      if (params.mode === 'verifyEmail' || params.mode === 'recoverEmail') {
         this.confirmEmail = true
         this.resetPassword = false
         return this.action.confirmEmail({oobCode: params.oobCode}).subscribe()

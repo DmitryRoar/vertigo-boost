@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {UserService} from '../shared/services/user.service'
-import {IPasswordHash, IUpdatePassword} from '../../shared/interfaces'
+import {IUpdatePassword} from '../../shared/interfaces'
 import {AuthService} from '../../shared/services/auth.service'
 import {Router} from '@angular/router'
 
@@ -12,7 +12,6 @@ import {Router} from '@angular/router'
 })
 export class UserChangeDataComponent implements OnInit {
   @Input() prevState: boolean
-  @Input() newPasswordHash: IPasswordHash
   @Output() newState = new EventEmitter()
 
   form: FormGroup
@@ -22,7 +21,8 @@ export class UserChangeDataComponent implements OnInit {
     public user: UserService,
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -47,21 +47,15 @@ export class UserChangeDataComponent implements OnInit {
       this.form.reset()
       throw new Error('Different Password')
     }
-    this.user.updateData(data).subscribe((userData) => {
-      const oldPasswordHash = userData.users[0].passwordHash
+    this.user.updateData(data).subscribe(() => {
+      this.auth.logout()
+      this.router.navigate(['/auth', 'sign-in'])
 
-      if (oldPasswordHash === this.newPasswordHash) {
-        this.auth.logout()
-        this.router.navigate(['/auth'])
-
-        this.newState.emit(this.prevState = false)
-        this.form.reset()
-      } else {
-        throw new Error('hello')
-      }
+      this.newState.emit(this.prevState = false)
+      this.form.reset()
     }, (error) => {
       const {message: errMsg} = error.error.error
-      if(errMsg === 'CREDENTIAL_TOO_OLD_LOGIN_AGAIN') {
+      if (errMsg === 'CREDENTIAL_TOO_OLD_LOGIN_AGAIN') {
         this.auth.logout()
         this.router.navigate(['/auth'], {
           queryParams: {

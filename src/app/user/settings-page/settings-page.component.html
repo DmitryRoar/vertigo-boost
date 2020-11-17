@@ -1,99 +1,120 @@
 <div *ngIf="emailInput && photoUrl; else loader">
-<div class="settings-wrapper">
-  <div class="settings-content">
+  <div class="settings-wrapper">
+    <div class="settings-content">
 
-    <div class="settings__title">
-      Settings
+      <div class="settings__title">
+        Settings
 
-      <div class="settings__errorImg" *ngIf="errorImageUrl">
-        URL should contain:
-        <p>http(s)://url.<strong>png|jpg|jpeg|webmp</strong></p>
+        <div class="settings__errorImg" *ngIf="errorImageUrl">
+          URL should contain:
+          <p>http(s)://url.<strong>png|jpg|jpeg|webmp</strong></p>
+        </div>
       </div>
-    </div>
 
-    <div class="settings-data">
+      <div class="settings-data">
 
-      <div class="settings__logo">
-        <div class="settings__branch">
-          <img [src]="photoUrl" alt="avatar">
-<!--          <button>Remove</button>-->
+        <div class="settings__logo">
+          <div class="settings__branch">
+            <img [src]="photoUrl" alt="avatar">
+            <!--          <button>Remove</button>-->
 
-          <button  class="settings__branch-hover" type="button">
-            <button type="button" class="branch-hover__btn" (click)="openInputForSearchUrl()">
-              Change <br> Avatar
+            <button class="settings__branch-hover" type="button">
+              <button type="button" class="branch-hover__btn" (click)="openInputForSearchUrl()">
+                Change <br> Avatar
+              </button>
             </button>
+          </div>
+
+          <div class="settings-info">
+            <div class="settings-info-up">
+              <p class="settings__social">Email</p>
+
+              <div *ngIf="!editMail; else edit" class="settings__account">
+                <input
+                  type='text'
+                  [value]="emailInput"
+                  [disabled]="!editMail"
+                >
+                <button *ngIf="editBtn" type="button" (click)="editMail = true">
+                  <img src="../../../assets/img/pen.svg" alt="pen">
+                </button>
+              </div>
+
+              <ng-template #edit>
+                <form (ngSubmit)="onSubmitEmail()" [formGroup]="formEmail">
+                  <div class="settings__account">
+
+                    <input
+                      type='text'
+                      [disabled]="formEmail.invalid"
+                      formControlName="newEmail"
+                    >
+                    <button *ngIf="editBtn" type="button" (click)="editMail = !editMail">
+                      <img src="../../../assets/img/pen.svg" alt="pen">
+                    </button>
+                  </div>
+                </form>
+              </ng-template>
+
+
+            </div>
+
+            <div class="settings-info-down">
+              <p class="settings__social">Discord</p>
+
+              <div class="settings__account">
+                <input type="text" value="empty" [disabled]="!editDiscord">
+                <button *ngIf="editBtn" (click)="editDiscord = true">
+                  <!--                <img src="../../../assets/img/pen.svg" alt="pen">-->
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="settings-edit">
+          <button
+            (click)="editBtn = true"
+            *ngIf="!editBtn; else saveBtn"
+          >
+            Edit
           </button>
-        </div>
 
-        <div class="settings-info">
-          <div class="settings-info-up">
-            <p class="settings__social">Email</p>
+          <ng-template #saveBtn>
 
-            <div class="settings__account">
-              <input type='text' [value]="emailInput" [disabled]="!editMail">
-              <button *ngIf="editBtn" (click)="editMail = true">
-                <img src="../../../assets/img/pen.svg" alt="pen">
-              </button>
-            </div>
-          </div>
+            <app-user-change-data
+              [prevState]="editBtn"
+              (newState)="backEditBtn($event)"
+            ></app-user-change-data>
 
-          <div class="settings-info-down">
-            <p class="settings__social">Discord</p>
-
-            <div class="settings__account">
-              <input type="text" value="empty" [disabled]="!editDiscord">
-              <button *ngIf="editBtn" (click)="editDiscord = true">
-<!--                <img src="../../../assets/img/pen.svg" alt="pen">-->
-              </button>
-            </div>
-          </div>
+          </ng-template>
 
         </div>
-      </div>
-
-
-      <div class="settings-edit">
-        <button
-          (click)="editBtn = true"
-          *ngIf="!editBtn; else saveBtn"
-        >
-          Edit
-        </button>
-
-        <ng-template #saveBtn>
-
-          <app-user-change-data
-            [prevState]="editBtn"
-            [newPasswordHash]="passwordHash"
-            (newState)="backEditBtn($event)"
-          ></app-user-change-data>
-
-        </ng-template>
 
       </div>
 
     </div>
 
-  </div>
-
-  <div
-    [ngClass]="{
+    <div
+      [ngClass]="{
       'wait': delayAfterConfirmEmail,
       'error': sendButtonError
     }"
-    class="settings-confirm"
-    *ngIf="!emailVerification"
-    (click)="sendOobOnMail()"
-  >
-    <input
-      type="button"
-      [disabled]="delayAfterConfirmEmail || sendButtonError"
-      [value]="confirmationLinkText"
+      class="settings-confirm"
+      *ngIf="!emailVerification"
+      (click)="sendOobOnMail()"
     >
-    <img src="../../../assets/img/successStick.svg" alt="confirm email">
-  </div>
+      <input
+        type="button"
+        [disabled]="delayAfterConfirmEmail || sendButtonError"
+        [value]="confirmationLinkText"
+      >
+      <img src="../../../assets/img/successStick.svg" alt="confirm email">
+    </div>
 
-</div>
+  </div>
 </div>
 
 <ng-template #loader>

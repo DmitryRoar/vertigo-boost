@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core'
 import {Router} from '@angular/router'
 import {HttpClient} from '@angular/common/http'
 import {Observable} from 'rxjs'
-import {switchMap, tap} from 'rxjs/operators'
+import {tap} from 'rxjs/operators'
 
 import {environment} from '../../../environments/environment'
 import {
@@ -35,7 +35,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient
-  ) {}
+  ) {
+  }
 
   get token(): string {
     const expDate = new Date(localStorage.getItem('fb-token-exp'))
@@ -63,11 +64,11 @@ export class AuthService {
 
   signUp(data: IAuthData): Observable<ISignUp> {
     return this.http.post<ISignUp>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
-      // .pipe(
-      //   switchMap((response: ISignUp): Observable<any> => {
-      //     return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
-      //   })
-      // )
+    // .pipe(
+    //   switchMap((response: ISignUp): Observable<any> => {
+    //     return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
+    //   })
+    // )
   }
 
   sendOobCode(data: IConfirmEmail): Observable<ISendOobCode> {
