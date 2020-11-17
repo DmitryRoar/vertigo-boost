@@ -1,0 +1,36 @@
+<div class="wrap" *ngIf="resetPassword || confirmEmail; else empty">
+  <div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="resetPassword">
+      <div class="form-reset">
+        <input
+          type="password"
+          placeholder="Enter new password"
+          formControlName="resetPasswordControl"
+          class="auth__input"
+          [ngClass]="{
+          'validation-border__error': form.get('resetPasswordControl').touched && form.get('resetPasswordControl').invalid
+        }"
+        >
+      </div>
+      <button
+        type="submit"
+        class="auth__btn"
+        [disabled]="form.invalid"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="confirmEmail" class="back-home">
+    <p>Confirm</p>
+    <a routerLink="/" class="back-home__a">back to home</a>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="back-home">
+    <span class="back-home__span">empty</span>
+    <a routerLink="/" class="back-home__a">back to home</a>
+  </div>
+</ng-template>

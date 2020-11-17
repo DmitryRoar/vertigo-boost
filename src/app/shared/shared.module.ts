@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core'
-import {HttpClientModule} from '@angular/common/http';
-import { LoaderComponent } from './components/loader/loader.component'
+import {HttpClientModule} from '@angular/common/http'
+import {LoaderComponent} from './components/loader/loader.component'
 
 @NgModule({
   declarations: [LoaderComponent],

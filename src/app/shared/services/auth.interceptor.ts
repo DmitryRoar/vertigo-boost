@@ -23,11 +23,21 @@ export class AuthInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           console.log('[INTERCEPTOR]: ', error)
-          if (error.status <= 400) {
+          const {message} = error.error.error
+
+          if (error.status === 401) {
             this.auth.logout()
             this.router.navigate(['/auth', 'sign-in'], {
               queryParams: {
                 loginAgain: true
+              }
+            })
+          }
+
+          if (message === 'INVALID_OOB_CODE') {
+            this.router.navigate(['/auth', 'reset-password'], {
+              queryParams: {
+                tryAgain: true
               }
             })
           }

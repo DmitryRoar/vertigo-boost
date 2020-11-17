@@ -41,7 +41,7 @@ export class SettingsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkOobCode()
+    // this.checkOobCode()
     this.checkData()
 
     if (!this.photoUrl) {
@@ -49,13 +49,13 @@ export class SettingsPageComponent implements OnInit {
     }
   }
 
-  private checkOobCode() {
-    this.route.queryParams.subscribe((params: IParamsForObb) => {
-      if (params.oobCode) {
-        this.user.updateData({oobCode: params.oobCode}).subscribe()
-      }
-    })
-  }
+  // private checkOobCode() {
+  //   this.route.queryParams.subscribe((params: IParamsForObb) => {
+  //     if (params.oobCode) {
+  //       this.user.updateData({oobCode: params.oobCode}).subscribe()
+  //     }
+  //   })
+  // }
 
   sendOobOnMail() {
     this.delayAfterConfirmEmail = true

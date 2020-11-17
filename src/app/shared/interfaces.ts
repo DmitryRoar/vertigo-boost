@@ -73,6 +73,7 @@ export interface IResetPassword {
 
 export interface IParamsForObb {
   oobCode: string
+  mode?: string
 }
 
 export interface IPasswordHash {
@@ -95,4 +96,9 @@ export interface IChangeData {
   displayName: string | null,
   deleteAttribute: string | null,
   returnSecureToken: boolean
+}
+
+export interface IConfirmToResetPassword {
+  oobCode: string
+  newPassword: string
 }

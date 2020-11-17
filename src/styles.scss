@@ -120,10 +120,6 @@
   }
 }
 
-.swal2-input.error {
-  border: 2px solid red;
-}
-
 @media (max-height: $content-height-adaptive) {
   .auth-header {
     font-size: 30px;
@@ -144,5 +140,9 @@
   cursor: not-allowed;
 }
 
+.error-text {
+  text-align: center;
+  color: red;
+}
 
 @import "src/assets/myStyles/media";

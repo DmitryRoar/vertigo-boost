@@ -12,6 +12,7 @@ import {CreateAccountPageComponent} from './auth/create-account-page/create-page
 import {ErrorPageComponent} from './shared/components/error-page/error-page.component'
 import {ProductsPageComponent} from './products-page/products-page.component'
 import {ResetPasswordPageComponent} from './auth/reset-password-page/reset-password-page.component'
+import {ActionComponent} from './shared/components/action/action.component'
 
 const routes: Routes = [
   {
@@ -39,7 +40,8 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           }
         ]
-      }
+      },
+      {path: 'action', component: ActionComponent}
     ]
   },
   {path: 'error', component: ErrorPageComponent},
