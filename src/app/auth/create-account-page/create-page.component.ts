@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/services/auth.service'
 import {IAuthData} from '../../shared/interfaces'
+import {Router} from '@angular/router'
+import {SwalAlertService} from '../../shared/services/swal-alert.service'
 
 @Component({
   selector: 'app-create-page',
@@ -15,7 +17,9 @@ export class CreateAccountPageComponent implements OnInit {
   formDisabled = false
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private swal: SwalAlertService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +50,8 @@ export class CreateAccountPageComponent implements OnInit {
 
     this.auth.signUp(data).subscribe(() => {
       this.formDisabled = true
-      this.auth.success()
+      this.swal.success()
+      this.router.navigate(['/auth', 'sign-in'])
       this.form.reset()
     }, () => {
       this.formDisabled = false

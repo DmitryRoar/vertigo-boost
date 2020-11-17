@@ -2,8 +2,10 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core'
 import {IChangeData, IConfirmEmail, ISwalInput, IUpdateEmail} from '../../shared/interfaces'
 import {UserService} from '../shared/services/user.service'
 import {ActivatedRoute, Router} from '@angular/router'
-import {AuthService} from 'src/app/shared/services/auth.service'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {SwalAlertService} from '../../shared/services/swal-alert.service'
+import {CommonService} from '../../shared/services/common.service'
+import {AuthService} from '../../shared/services/auth.service'
 
 declare var Swal: ISwalInput
 
@@ -24,7 +26,6 @@ export class SettingsPageComponent implements OnInit {
   defaultPhotoUrl = 'https://avatars1.githubusercontent.com/u/31390354?s=460&u=082a54d4c1305116b9b434f109d7965c26007643&v=4'
 
   editMail = false
-  editDiscord = false
   editBtn = false
 
   emailVerification = false
@@ -34,9 +35,13 @@ export class SettingsPageComponent implements OnInit {
 
   errorImageUrl = false
 
+  message = ''
+
   constructor(
     private user: UserService,
+    private swal: SwalAlertService,
     private auth: AuthService,
+    private common: CommonService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -53,7 +58,7 @@ export class SettingsPageComponent implements OnInit {
       idToken: localStorage.getItem('fb-token'),
       requestType: 'VERIFY_EMAIL'
     }
-    this.auth.sendOobCode(data).subscribe(() => {
+    this.common.sendOobCode(data).subscribe(() => {
       this.confirmationLinkText = 'A confirmation link has been sent to your email'
     }, () => {
       this.delayAfterConfirmEmail = false
@@ -124,14 +129,19 @@ export class SettingsPageComponent implements OnInit {
   onSubmitEmail() {
     if (this.formEmail.invalid) return
 
+    this.editMail = false
     const data: IUpdateEmail = {
       idToken: localStorage.getItem('fb-token'),
       email: this.formEmail.value.newEmail,
       returnSecureToken: true
     }
     this.user.updateData(data).subscribe(() => {
-      this.user.success()
+      this.swal.success()
       this.router.navigate(['/auth', 'sign-in'])
+    }, error => {
+      if (error.error.error.message === 'EMAIL_EXISTS') {
+        this.message = 'Email exists'
+      }
     })
   }
 }

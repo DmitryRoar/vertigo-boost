@@ -6,7 +6,7 @@ import {catchError} from 'rxjs/operators'
 import {Router} from '@angular/router'
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class CommonInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthService,
     private router: Router
@@ -56,6 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 tokenExpired: true
               }
             })
+            this.auth.logout()
           }
 
           return throwError(error)

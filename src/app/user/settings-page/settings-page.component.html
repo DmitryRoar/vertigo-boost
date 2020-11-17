@@ -9,6 +9,9 @@
           URL should contain:
           <p>http(s)://url.<strong>png|jpg|jpeg|webmp</strong></p>
         </div>
+        <div class="settings__errorImg" *ngIf="message">
+          {{message}}
+        </div>
       </div>
 
       <div class="settings-data">
@@ -16,7 +19,6 @@
         <div class="settings__logo">
           <div class="settings__branch">
             <img [src]="photoUrl" alt="avatar">
-            <!--          <button>Remove</button>-->
 
             <button class="settings__branch-hover" type="button">
               <button type="button" class="branch-hover__btn" (click)="openInputForSearchUrl()">
@@ -56,20 +58,7 @@
                 </form>
               </ng-template>
 
-
             </div>
-
-            <div class="settings-info-down">
-              <p class="settings__social">Discord</p>
-
-              <div class="settings__account">
-                <input type="text" value="empty" [disabled]="!editDiscord">
-                <button *ngIf="editBtn" (click)="editDiscord = true">
-                  <!--                <img src="../../../assets/img/pen.svg" alt="pen">-->
-                </button>
-              </div>
-            </div>
-
           </div>
         </div>
 

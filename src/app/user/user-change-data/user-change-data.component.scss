@@ -1,8 +1,5 @@
 .settings-edit {
   button {
-    // если ты новые кодер. Прошу простить за строчку ниже. Я устал, крайняя мера :(
-    float: right;
-
     &:disabled {
       cursor: not-allowed;
     }
@@ -11,7 +8,7 @@
 
 .settings-inputs {
   position: absolute;
-  top: 340px;
+  top: 272px;
   right: 48%;
   transform: translateX(50%);
 }
@@ -50,7 +47,7 @@
 @media (max-width: 790px) {
   .settings-inputs {
     right: 50%;
-    top: 614px;
+    top: 500px;
     transform: translateX(50%);
   }
 }

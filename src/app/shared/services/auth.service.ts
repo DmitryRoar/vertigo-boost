@@ -5,19 +5,7 @@ import {Observable} from 'rxjs'
 import {tap} from 'rxjs/operators'
 
 import {environment} from '../../../environments/environment'
-import {
-  FbAuthResponse,
-  IAuthData,
-  IConfirmEmail,
-  INavbar,
-  IResetPassword,
-  ISendOobCode,
-  ISignUp,
-  ISwalBtn
-} from '../interfaces'
-
-
-declare var Swal: ISwalBtn
+import {FbAuthResponse, IAuthData, INavbar, IResetPassword, ISendOobCode, ISignUp} from '../interfaces'
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -64,15 +52,6 @@ export class AuthService {
 
   signUp(data: IAuthData): Observable<ISignUp> {
     return this.http.post<ISignUp>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`, data)
-    // .pipe(
-    //   switchMap((response: ISignUp): Observable<any> => {
-    //     return this.sendOobCode({idToken: response.idToken, requestType: 'VERIFY_EMAIL'})
-    //   })
-    // )
-  }
-
-  sendOobCode(data: IConfirmEmail): Observable<ISendOobCode> {
-    return this.http.post<ISendOobCode>(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${environment.apiKey}`, data)
   }
 
   resetPassword(data: IResetPassword): Observable<ISendOobCode> {
@@ -86,16 +65,6 @@ export class AuthService {
       localStorage.setItem('fb-token-exp', expDate.toString())
     } else {
       localStorage.clear()
-    }
-  }
-
-  async success(msg = 'Check your Email') {
-    try {
-      await Swal.fire(msg, '', 'success')
-      this.router.navigate(['/profile', 'subscriptions'])
-    } catch (e) {
-      await Swal.fire('Something went wrong', '', 'error')
-      this.router.navigate(['/'])
     }
   }
 

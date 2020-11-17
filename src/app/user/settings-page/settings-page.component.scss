@@ -16,7 +16,6 @@
 
 .settings__logo {
   display: flex;
-  align-items: center;
 }
 
 .settings-info {
@@ -156,8 +155,6 @@
     width: 128px;
     height: 128px;
     border-radius: 50%;
-
-
   }
 
   button {
@@ -171,17 +168,15 @@
 @media (max-width: 1030px) {
   .settings-wrapper {
     width: 100vw;
-    height: calc(100vh + 42px) !important;
-
+    height: calc(100vh + 90px) !important;
   }
 
   .settings__title {
-    margin: 89px 0 58px 0;
+    margin: 89px 0 25px 0;
   }
 }
 
 @media (max-width: 790px) {
-
   .settings-data, .settings__logo {
     flex-direction: column;
     align-items: flex-start;

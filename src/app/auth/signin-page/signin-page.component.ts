@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../../shared/services/auth.service'
 import {IAuthData} from '../../shared/interfaces'
-import {ActivatedRoute, Params} from '@angular/router'
+import {ActivatedRoute, Params, Router} from '@angular/router'
+import {SwalAlertService} from '../../shared/services/swal-alert.service'
 
 @Component({
   selector: 'app-signin-page',
@@ -19,7 +20,9 @@ export class SignInPageComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private route: ActivatedRoute
+    private swal: SwalAlertService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -33,6 +36,8 @@ export class SignInPageComponent implements OnInit {
         this.errorMsg = 'Something went wrong! Try again'
       }
     })
+
+    this.auth.logout()
   }
 
   onSubmit() {
@@ -43,7 +48,8 @@ export class SignInPageComponent implements OnInit {
       returnSecureToken: true
     }
     this.auth.login(data).subscribe(() => {
-      this.auth.success('Welcome')
+      this.router.navigate(['/profile', 'subscriptions'])
+      this.swal.success('Welcome')
     }, () => {
       this.error = true
       this.formDisabled = false
